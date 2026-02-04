@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Avukat Enes Yıldırım - İstanbul Barosu. Boşanma, Ceza, Gayrimenkul, Miras, İş ve Ticaret Hukuku alanlarında profesyonel hukuki danışmanlık.">
+    <meta name="keywords" content="avukat istanbul, enes yıldırım, istanbul barosu, boşanma avukatı, ceza avukatı, gayrimenkul avukatı">
+    <title>Avukat Enes Yıldırım | İstanbul Barosu - Hukuki Danışmanlık</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #c9a961;
+            --text: #333333;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --gray: #6c757d;
+            --border: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: var(--primary);
+            color: var(--white);
+            padding: 12px 5%;
+            font-size: 0.9rem;
+        }
+
+        .top-bar .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .top-contact {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .top-contact a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .top-contact a:hover {
+            color: var(--accent);
+        }
+
+        .top-contact i {
+            margin-right: 8px;
+            color: var(--accent);
+        }
+
+        .social-top {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-top a {
+            color: var(--white);
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .social-top a:hover {
+            color: var(--accent);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--accent);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            padding: 80px 5%;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--primary);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--accent);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 450px;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border: 5px solid var(--accent);
+        }
+
+        /* Section */
+        section {
+            padding: 100px 5%;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .section-title h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            margin: 1rem auto 0;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border-top: 4px solid var(--accent);
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .service-card i {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        /* About */
+        #hakkimda {
+            background: var(--light);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .about-content p {
+            color: var(--text);
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .info-boxes {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .info-box {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+        }
+
+        .info-box i {
+            font-size: 2rem;
+            color: var(--accent);
+            min-width: 40px;
+        }
+
+        .info-box strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        /* Stats */
+        .stats {
+            background: var(--primary);
+            color: var(--white);
+            padding: 60px 5%;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.1rem;
+        }
+
+        /* Testimonials */
+        #yorumlar {
+            background: var(--light);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .testimonial-card i.quote {
+            font-size: 3rem;
+            color: var(--accent);
+            opacity: 0.2;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .testimonial-card p {
+            color: var(--text);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .author-info h4 {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info .stars {
+            color: #ffc107;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            color: var(--accent);
+            min-width: 40px;
+        }
+
+        .contact-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .contact-item p,
+        .contact-item a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent);
+        }
+
+        .contact-form {
+            background: var(--light);
+            padding: 2.5rem;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 60px 5% 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-section h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            line-height: 2;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .footer-section i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: rgba(201, 169, 97, 0.2);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .top-bar .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero .container,
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .services-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 60px 5%;
+            }
+
+            section {
+                padding: 60px 5%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-contact">
+                <a href="mailto:info@avukatenesyildirim.com">
+                    <i class="fas fa-envelope"></i>
+                    info@avukatenesyildirim.com
+                </a>
+                <a href="tel:+905455619465">
+                    <i class="fas fa-phone"></i>
+                    0545 561 94 65
+                </a>
+            </div>
+            <div class="social-top">
+                <a href="https://www.linkedin.com/in/enes-yildirim-90b19821a/" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://www.instagram.com/enesyilddirim/" target="_blank" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">
+                ENES <span>YILDIRIM</span>
+            </a>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul id="mainMenu">
+                <li><a href="#anasayfa">Ana Sayfa</a></li>
+                <li><a href="#hizmetler">Hizmetlerimiz</a></li>
+                <li><a href="#hakkimda">Hakkımda</a></li>
+                <li><a href="#yorumlar">Yorumlar</a></li>
+                <li><a href="#iletisim">İletişim</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="anasayfa" class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>Avukat Enes Yıldırım Hukuk Bürosu</h1>
+                <p class="subtitle">İstanbul Barosu</p>
+                <p>
+                    Hukuki sorunlarınıza profesyonel ve güvenilir çözümler sunuyoruz. 
+                    Müvekkillerimizin haklarını en iyi şekilde korumak için deneyim ve 
+                    uzmanlığımızla yanınızdayız. Boşanma, ceza, gayrimenkul, miras, 
+                    iş ve ticaret hukuku alanlarında kapsamlı hizmet vermekteyiz.
+                </p>
+                <div class="btn-group">
+                    <a href="#iletisim" class="btn btn-primary">İletişime Geçin</a>
+                    <a href="#hizmetler" class="btn btn-secondary">Hizmetlerimiz</a>
+                </div>
+            </div>
+            <div class="hero-image fade-in">
+                <img src="enes.jpg" alt="Avukat Enes Yıldırım">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="hizmetler">
+        <div class="container">
+            <div class="section-title">
+                <h2>Hukuki Hizmetlerimiz</h2>
+                <p>Uzman kadromuzla sizin için en iyi çözümleri sunuyoruz</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-gavel"></i>
+                    <h3>Ceza Hukuku</h3>
+                    <p>Ceza davalarında savunma, suç mağdurları için dava takibi ve hukuki danışmanlık hizmetleri sunuyoruz.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-heart-broken"></i>
+                    <h3>Boşanma Hukuku</h3>
+                    <p>Boşanma davaları, velayet, nafaka, mal paylaşımı konularında profesyonel destek sağlıyoruz.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-home"></i>
+                    <h3>Gayrimenkul Hukuku</h3>
+                    <p>Tapu işlemleri, kira uyuşmazlıkları, gayrimenkul alım-satım ve tahliye davaları konusunda hizmet veriyoruz.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-balance-scale"></i>
+                    <h3>Tazminat Davaları</h3>
+                    <p>Trafik kazaları, iş kazaları, maddi ve manevi tazminat davalarında yanınızdayız.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-landmark"></i>
+                    <h3>Miras Hukuku</h3>
+                    <p>Miras paylaşımı, veraset işlemleri, mirastan mal kaçırma davaları konusunda danışmanlık veriyoruz.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>İş Hukuku</h3>
+                    <p>İş akitleri, işçi-işveren uyuşmazlıkları, kıdem ve ihbar tazminatı davaları takibini yapıyoruz.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Arabuluculuk</h3>
+                    <p>Uyuşmazlıkların daha hızlı ve barışçıl çözümü için arabuluculuk hizmetleri sunuyoruz.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-key"></i>
+                    <h3>Kira Hukuku</h3>
+                    <p>Kiracı ve mal sahipleri arasındaki anlaşmazlıklarda profesyonel çözümler üretiyoruz.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <i class="fas fa-award"></i>
+                <h3>5+</h3>
+                <p>Yıllık Deneyim</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-users"></i>
+                <h3>500+</h3>
+                <p>Mutlu Müvekkil</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-trophy"></i>
+                <h3>%95</h3>
+                <p>Başarı Oranı</p>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-clock"></i>
+                <h3>7/24</h3>
+                <p>Hızlı Destek</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- About -->
+    <section id="hakkimda">
+        <div class="container">
+            <div class="section-title">
+                <h2>Hakkımda</h2>
+                <p>Profesyonel hukuki hizmet anlayışı</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-content">
+                    <h3>Av. Enes Yıldırım</h3>
+                    <p>
+                        Marmara Üniversitesi Hukuk Fakültesi mezunu olarak İstanbul Barosu üyesiyim ve 
+                        müvekkillerime profesyonel avukatlık hizmetleri sunmaktayım. Hukuki süreçlerde 
+                        şeffaflık, güvenilirlik ve müvekkil memnuniyetini ön planda tutarak, her davaya 
+                        özel çözümler üretiyorum.
+                    </p>
+                    <p>
+                        Boşanma hukuku, ceza hukuku, gayrimenkul hukuku, miras hukuku, iş hukuku ve 
+                        ticaret hukuku gibi birçok alanda derin bir bilgi birikimine sahibim. 
+                        Müvekkillerimin haklarını en iyi şekilde korumak ve savunmak için modern 
+                        hukuki stratejiler geliştiriyor, sürekli kendimi geliştirerek güncel yargı 
+                        kararlarını yakından takip ediyorum.
+                    </p>
+                    <div class="info-boxes">
+                        <div class="info-box">
+                            <i class="fas fa-graduation-cap"></i>
+                            <div>
+                                <strong>Eğitim</strong>
+                                Marmara Üniversitesi Hukuk Fakültesi<br>
+                                (Ocak 2019 - Eylül 2023)
+                            </div>
+                        </div>
+                        <div class="info-box">
+                            <i class="fas fa-balance-scale-right"></i>
+                            <div>
+                                <strong>Baro Kaydı</strong>
+                                İstanbul Barosu
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="1694951507317.jpg" alt="Avukat Enes Yıldırım">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="yorumlar">
+        <div class="container">
+            <div class="section-title">
+                <h2>Müvekkil Yorumları</h2>
+                <p>Müvekkillerimizin memnuniyeti bizim için en önemli başarı göstergesidir</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left quote"></i>
+                    <p>
+                        Boşanma sürecimde Enes Bey her detayı titizlikle takip etti ve haklarımı 
+                        en iyi şekilde korudu. Profesyonel yaklaşımı ve samimiyetiyle zor bir 
+                        süreci çok daha kolay atlattım. Teşekkür ederim.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">A</div>
+                        <div class="author-info">
+                            <h4>Ayşe K.</h4>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left quote"></i>
+                    <p>
+                        İş kazası sonrası tazminat davamda Enes Bey sayesinde hakkımı aldım. 
+                        Süreç boyunca her aşamada bilgilendirdi ve işini gerçekten iyi yaptı. 
+                        Herkese gönül rahatlığıyla tavsiye edebilirim.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">M</div>
+                        <div class="author-info">
+                            <h4>Mehmet Y.</h4>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left quote"></i>
+                    <p>
+                        Gayrimenkul alım-satım sürecinde yaşadığımız sorunları Enes Bey'in 
+                        profesyonel yaklaşımıyla çözdük. Hukuki bilgisi ve tecrübesi sayesinde 
+                        işlemler sorunsuz tamamlandı. Çok teşekkür ederim.
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">Z</div>
+                        <div class="author-info">
+                            <h4>Zeynep S.</h4>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="iletisim">
+        <div class="container">
+            <div class="section-title">
+                <h2>İletişim</h2>
+                <p>Hukuki danışmanlık için bizimle iletişime geçin</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Adres</h3>
+                            <p>Mecidiyeköy Trump AVM<br>İstanbul, Türkiye</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Telefon</h3>
+                            <a href="tel:+905455619465">0545 561 94 65</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>E-posta</h3>
+                            <a href="mailto:info@avukatenesyildirim.com">info@avukatenesyildirim.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3>Çalışma Saatleri</h3>
+                            <p>Hafta içi: 09:00 - 18:00<br>Cumartesi: Randevulu</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label for="name">Adınız Soyadınız</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-posta</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mesajınız</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Gönder</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h3>Avukat Enes Yıldırım</h3>
+                <p>
+                    İstanbul Barosu üyesi olarak müvekkillerimize profesyonel hukuki 
+                    danışmanlık ve dava takibi hizmetleri sunmaktayız.
+                </p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/enes-yildirim-90b19821a/" target="_blank">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://www.instagram.com/enesyilddirim/" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/905455619465" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Hızlı Linkler</h3>
+                <a href="#anasayfa">Ana Sayfa</a>
+                <a href="#hizmetler">Hizmetlerimiz</a>
+                <a href="#hakkimda">Hakkımda</a>
+                <a href="#yorumlar">Yorumlar</a>
+                <a href="#iletisim">İletişim</a>
+            </div>
+            <div class="footer-section">
+                <h3>Hizmetlerimiz</h3>
+                <a href="#hizmetler">Ceza Hukuku</a>
+                <a href="#hizmetler">Boşanma Hukuku</a>
+                <a href="#hizmetler">Gayrimenkul Hukuku</a>
+                <a href="#hizmetler">Miras Hukuku</a>
+                <a href="#hizmetler">İş Hukuku</a>
+            </div>
+            <div class="footer-section">
+                <h3>İletişim Bilgileri</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Mecidiyeköy Trump AVM, İstanbul</p>
+                <a href="tel:+905455619465"><i class="fas fa-phone"></i> 0545 561 94 65</a>
+                <a href="mailto:info@avukatenesyildirim.com"><i class="fas fa-envelope"></i> info@avukatenesyildirim.com</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Avukat Enes Yıldırım. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/905455619465" class="whatsapp-float" target="_blank" title="WhatsApp ile iletişime geçin">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mainMenu');
+            menu.classList.toggle('active');
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.getElementById('mainMenu').classList.remove('active');
+                }
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            } else {
+                nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
