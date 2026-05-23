@@ -5,6 +5,7 @@ import Services from './components/Services';
 import About from './components/About';
 import Articles from './components/Articles';
 import Testimonials from './components/Testimonials';
+import Faq from './components/Faq';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
@@ -52,6 +53,54 @@ function App() {
     ]
   };
 
+  // Structured Q&A data for Google FAQPage Rich Results and AI Generative Engine Search
+  const faqSchemaMarkup = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Bayrampaşa'da Avukatlık ve Hukuki Danışmanlık hizmeti nasıl alınır?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Avukat Enes Yıldırım Hukuk Bürosu, İstanbul Bayrampaşa Yıldırım Mahallesi Zafer Caddesi No:71B adresindeki ofisinde müvekkillerine yüz yüze ve online danışmanlık hizmeti sunmaktadır. Hukuki destek, dava takibi ve randevu talepleriniz için web sitemizdeki iletişim formunu doldurabilir, telefon numaramızı arayabilir veya sağ alttaki yüzen butonu kullanarak doğrudan WhatsApp üzerinden bizimle iletişime geçebilirsiniz."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Kira tahliye davası ne kadar sürer ve tahliye taahhütnamesinin önemi nedir?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Kira tahliye davası, mahkemelerin iş yoğunluğuna ve tahliye sebebine bağlı olarak ortalama 6 ay ile 1.5 yıl arasında sürmektedir. Ancak, kiralananın tesliminden sonra imzalanmış yasal ve geçerli bir 'Tahliye Taahhütnamesi' mevcut ise, süreç icra takibi veya sulh hukuk davası yoluyla çok daha hızlı ve pratik şekilde neticelendirilir."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Anlaşmalı boşanma davası tek celsede biter mi ve şartları nelerdir?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Evet, anlaşmalı boşanma davaları tüm şartlar sağlandığında genellikle tek celsede ve 1-2 ay gibi kısa bir sürede sonuçlanır. Anlaşmalı boşanma için evlilik birliğinin en az 1 (bir) yıl sürmüş olması, eşlerin boşanma hususunda ortak irade göstermesi ve velayet, nafaka, tazminatlar ile mal paylaşımı konularını kapsayan profesyonel bir 'Anlaşmalı Boşanma Protokolü' imzalayarak hakim huzurunda bunu bizzat beyan etmesi zorunludur."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Kıdem ve ihbar tazminatı hakları nelerdir, arabuluculuk süreci zorunlu mudur?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "İş sözleşmesi işveren tarafından haksız olarak feshedilen veya kendisi haklı nedenle (SGK primlerinin eksik yatırılması, maaş gecikmesi, mobbing vb.) sözleşmeyi fesheden işçi, en az 1 yıllık çalışması varsa kıdem tazminatı talep edebilir. İhbar süresine uyulmadan yapılan fesihlerde ise ihbar tazminatı hakkı doğar. İş hukuku uyuşmazlıklarında dava açmadan önce arabuluculuk sürecine başvurulması zorunludur."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Ceza davalarında (Ağır Ceza / Asliye Ceza) avukat tutmak neden önemlidir?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Türk hukuk sisteminde avukat tutmak zorunlu olmasa da, hürriyeti bağlayıcı (hapis cezası) sonuçlar doğuran son derece kritik bir alan olduğu için, kolluk ve savcılık ifadesinden başlayarak mahkeme aşamalarına kadar savunmanın bir ceza avukatı vasıtasıyla profesyonelce yapılması, telafisi imkansız hak kayıplarını engellemek adına hayati önem taşır."
+        }
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-silver selection:text-burgundy-dark">
       <Helmet>
@@ -78,6 +127,9 @@ function App() {
         <script type="application/ld+json">
           {JSON.stringify(schemaMarkup)}
         </script>
+        <script type="application/ld+json">
+          {JSON.stringify(faqSchemaMarkup)}
+        </script>
       </Helmet>
       
       {/* Navigation Menu */}
@@ -90,6 +142,7 @@ function App() {
         <About />
         <Articles />
         <Testimonials />
+        <Faq />
         <Contact />
       </main>
       
