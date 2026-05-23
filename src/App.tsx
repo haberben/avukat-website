@@ -15,9 +15,9 @@ function App() {
     "@context": "https://schema.org",
     "@type": "LegalService",
     "name": "Avukat Enes Yıldırım Hukuk Bürosu",
-    "image": "https://avukatenesyildirim.com/enes.jpg", 
-    "@id": "https://avukatenesyildirim.com/#legalservice",
-    "url": "https://avukatenesyildirim.com",
+    "image": "https://xn--avukatenesyldrm-ilccb.com/enes.jpg", 
+    "@id": "https://xn--avukatenesyldrm-ilccb.com/#legalservice",
+    "url": "https://xn--avukatenesyldrm-ilccb.com",
     "telephone": "+905455619465",
     "priceRange": "$$",
     "address": {
@@ -62,17 +62,17 @@ function App() {
         
         {/* Open Graph / Facebook SEO Tags */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://avukatenesyildirim.com/" />
+        <meta property="og:url" content="https://xn--avukatenesyldrm-ilccb.com/" />
         <meta property="og:title" content="Avukat Enes Yıldırım | Bayrampaşa Hukuki Danışmanlık" />
         <meta property="og:description" content="İstanbul Bayrampaşa'da profesyonel avukatlık hizmeti. Ceza, boşanma, gayrimenkul, iş ve kira hukuku uyuşmazlıklarında uzman çözümler." />
-        <meta property="og:image" content="https://avukatenesyildirim.com/enes.jpg" />
+        <meta property="og:image" content="https://xn--avukatenesyldrm-ilccb.com/enes.jpg" />
 
         {/* Twitter Card SEO Tags */}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://avukatenesyildirim.com/" />
+        <meta property="twitter:url" content="https://xn--avukatenesyldrm-ilccb.com/" />
         <meta property="twitter:title" content="Avukat Enes Yıldırım | Bayrampaşa Hukuk Bürosu" />
         <meta property="twitter:description" content="İstanbul Bayrampaşa'da profesyonel avukatlık ve danışmanlık hizmeti. Ceza, aile, iş, kira ve miras davaları." />
-        <meta property="twitter:image" content="https://avukatenesyildirim.com/enes.jpg" />
+        <meta property="twitter:image" content="https://xn--avukatenesyldrm-ilccb.com/enes.jpg" />
 
         {/* Structured Schema Data for Google Search Engine Optimization */}
         <script type="application/ld+json">
