@@ -18,7 +18,7 @@ const WhatsAppButton = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
-            className="mr-3 bg-slate-900 border border-gold/40 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-2xl backdrop-blur-md pointer-events-none hidden sm:block font-sans select-none"
+            className="mr-3 bg-burgundy-dark border border-silver/40 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-2xl backdrop-blur-md pointer-events-none hidden sm:block font-sans select-none"
           >
             Avukat Enes Yıldırım'a Yazın
           </motion.div>
@@ -41,7 +41,7 @@ const WhatsAppButton = () => {
         <span className="absolute -inset-1 rounded-full bg-emerald-500/30 animate-ping opacity-75"></span>
         
         {/* Inner gold glowing ring */}
-        <span className="absolute inset-0.5 rounded-full border border-gold/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+        <span className="absolute inset-0.5 rounded-full border border-silver/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
 
         <svg
           className="w-7 h-7 fill-current relative z-10"

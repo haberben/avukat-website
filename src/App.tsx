@@ -53,7 +53,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-gold selection:text-slate-950">
+    <div className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-silver selection:text-burgundy-dark">
       <Helmet>
         {/* Basic SEO Tags */}
         <title>Avukat Enes Yıldırım | İstanbul Bayrampaşa Avukat ve Danışmanlık</title>

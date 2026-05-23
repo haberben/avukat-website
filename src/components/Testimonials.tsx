@@ -27,7 +27,7 @@ const reviews = [
 
 const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState(0); // -1 for left, 1 for right
+  const [direction, setDirection] = useState(0);
 
   const nextTestimonial = () => {
     setDirection(1);
@@ -39,7 +39,6 @@ const Testimonials = () => {
     setActiveIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
   };
 
-  // Auto rotate testimonials
   useEffect(() => {
     const timer = setInterval(() => {
       nextTestimonial();
@@ -66,16 +65,16 @@ const Testimonials = () => {
     <section id="yorumlar" className="py-24 bg-white border-t border-slate-100 relative overflow-hidden">
       
       {/* Background visual element */}
-      <div className="absolute top-10 right-10 w-64 h-64 bg-slate-50 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-10 right-10 w-64 h-64 bg-gray-50 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-16 relative z-10">
         
         {/* Title Section */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <div className="flex items-center justify-center gap-4 mb-4">
-            <div className="w-8 h-[2px] bg-gold"></div>
-            <span className="text-gold uppercase tracking-widest text-sm font-bold">Referanslar</span>
-            <div className="w-8 h-[2px] bg-gold"></div>
+            <div className="w-8 h-[2px] bg-burgundy-light"></div>
+            <span className="text-burgundy-light uppercase tracking-widest text-sm font-bold">Referanslar</span>
+            <div className="w-8 h-[2px] bg-burgundy-light"></div>
           </div>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -93,7 +92,7 @@ const Testimonials = () => {
         {/* Carousel Container */}
         <div className="max-w-4xl mx-auto relative px-4 sm:px-12 md:px-16 min-h-[380px] sm:min-h-[320px] flex items-center">
           
-          <Quote className="w-20 h-20 text-gold/10 absolute -top-4 left-0 md:left-6 z-0" />
+          <Quote className="w-20 h-20 text-burgundy-light/5 absolute -top-4 left-0 md:left-6 z-0" />
           
           <div className="w-full relative overflow-hidden py-4 z-10">
             <AnimatePresence initial={false} custom={direction} mode="wait">
@@ -105,10 +104,10 @@ const Testimonials = () => {
                 animate="center"
                 exit="exit"
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
-                className="bg-slate-50 p-8 sm:p-12 rounded border border-slate-150 shadow-sm relative"
+                className="bg-gray-50 p-8 sm:p-12 rounded border border-slate-200 shadow-sm relative"
               >
-                {/* 5 Stars rating */}
-                <div className="flex gap-1 mb-6 text-gold">
+                {/* 5 Stars rating (styled using burgundy-light accent) */}
+                <div className="flex gap-1 mb-6 text-burgundy-light">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-current" />
                   ))}
@@ -119,7 +118,7 @@ const Testimonials = () => {
                 </p>
 
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center border border-gold/40">
+                  <div className="w-12 h-12 rounded-full bg-burgundy-dark flex items-center justify-center border border-burgundy-light/40">
                     <span className="text-white font-bold font-serif text-lg">
                       {reviews[activeIndex].author.charAt(0)}
                     </span>
@@ -129,7 +128,7 @@ const Testimonials = () => {
                       {reviews[activeIndex].author}
                     </h4>
                     <span className="text-xs text-slate-500 font-bold uppercase tracking-wider flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-gold"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-burgundy-light"></span>
                       {reviews[activeIndex].role}
                     </span>
                   </div>
@@ -138,18 +137,18 @@ const Testimonials = () => {
             </AnimatePresence>
           </div>
 
-          {/* Navigation Buttons (Sized for mobile touch targets) */}
+          {/* Navigation Buttons */}
           <div className="flex justify-center sm:justify-between items-center mt-8 sm:mt-0 gap-6 sm:gap-0 sm:absolute sm:inset-x-0 sm:top-1/2 sm:-translate-y-1/2 z-20">
             <button
               onClick={prevTestimonial}
-              className="w-11 h-11 rounded-full bg-white border border-slate-200 shadow hover:bg-gold hover:text-white hover:border-gold active:scale-95 transition-all flex items-center justify-center text-slate-700"
+              className="w-11 h-11 rounded-full bg-white border border-slate-200 shadow hover:bg-burgundy-light hover:text-white hover:border-burgundy-light active:scale-95 transition-all flex items-center justify-center text-slate-700"
               aria-label="Önceki Yorum"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={nextTestimonial}
-              className="w-11 h-11 rounded-full bg-white border border-slate-200 shadow hover:bg-gold hover:text-white hover:border-gold active:scale-95 transition-all flex items-center justify-center text-slate-700"
+              className="w-11 h-11 rounded-full bg-white border border-slate-200 shadow hover:bg-burgundy-light hover:text-white hover:border-burgundy-light active:scale-95 transition-all flex items-center justify-center text-slate-700"
               aria-label="Sonraki Yorum"
             >
               <ChevronRight className="w-5 h-5" />
@@ -168,7 +167,7 @@ const Testimonials = () => {
                 setActiveIndex(idx);
               }}
               className={`w-3.5 h-1.5 rounded-full transition-all duration-300 ${
-                activeIndex === idx ? 'bg-gold w-6' : 'bg-slate-200 hover:bg-slate-300'
+                activeIndex === idx ? 'bg-burgundy-light w-6' : 'bg-slate-200 hover:bg-slate-300'
               }`}
               aria-label={`Yorum ${idx + 1}`}
             ></button>

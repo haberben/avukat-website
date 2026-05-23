@@ -81,20 +81,20 @@ const Articles = () => {
   });
 
   return (
-    <section id="yayinlar" className="py-24 bg-slate-50 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-gold/5 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-navy/5 rounded-full blur-3xl pointer-events-none"></div>
+    <section id="yayinlar" className="py-24 bg-gray-50 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-burgundy-light/5 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-burgundy-dark/5 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="container mx-auto px-6 lg:px-16 relative z-10">
         
         {/* Title Section */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <div className="flex items-center justify-center gap-4 mb-4">
-            <div className="w-8 h-[2px] bg-gold"></div>
-            <span className="text-gold uppercase tracking-widest text-sm font-bold flex items-center gap-2">
+            <div className="w-8 h-[2px] bg-burgundy-light"></div>
+            <span className="text-burgundy-light uppercase tracking-widest text-sm font-bold flex items-center gap-2">
               <BookOpen className="w-4 h-4" /> Hukuki Bilgi Bankası
             </span>
-            <div className="w-8 h-[2px] bg-gold"></div>
+            <div className="w-8 h-[2px] bg-burgundy-light"></div>
           </div>
           <h2 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 mb-6">
             Yayınlar & Hukuki Rehberler
@@ -115,8 +115,8 @@ const Articles = () => {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-5 py-2.5 rounded-full text-xs uppercase tracking-wider font-bold transition-all duration-300 ${
                   selectedCategory === cat
-                    ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/10 border border-slate-900'
-                    : 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200'
+                    ? 'bg-burgundy-muted text-white shadow-lg border border-burgundy-muted'
+                    : 'bg-gray-50 text-slate-600 hover:bg-gray-150 border border-slate-200'
                 }`}
               >
                 {cat}
@@ -131,7 +131,7 @@ const Articles = () => {
               placeholder="Makale veya anahtar kelime ara..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-slate-50 text-slate-800 placeholder-slate-400 pl-10 pr-4 py-3 rounded-full border border-slate-200 focus:outline-none focus:border-gold focus:bg-white focus:ring-1 focus:ring-gold text-sm transition-all"
+              className="w-full bg-slate-50 text-slate-800 placeholder-slate-400 pl-10 pr-4 py-3 rounded-full border border-slate-200 focus:outline-none focus:border-burgundy-light focus:bg-white focus:ring-1 focus:ring-burgundy-light text-sm transition-all"
             />
             <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
           </div>
@@ -150,12 +150,12 @@ const Articles = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="bg-white rounded-lg overflow-hidden border border-slate-100 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col group"
+                  className="bg-white rounded-lg overflow-hidden border border-slate-150 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col group"
                 >
                   <div className="p-8 flex-grow">
                     {/* Category Label */}
                     <div className="flex items-center justify-between mb-4">
-                      <span className="bg-gold/10 text-gold-dark text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded">
+                      <span className="bg-burgundy-light/10 text-burgundy-light text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded">
                         {article.category}
                       </span>
                       <div className="flex items-center gap-1.5 text-xs text-slate-400 font-light">
@@ -165,7 +165,7 @@ const Articles = () => {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-xl font-serif font-bold text-slate-900 mb-4 group-hover:text-gold transition-colors duration-300 line-clamp-2">
+                    <h3 className="text-xl font-serif font-bold text-slate-900 mb-4 group-hover:text-burgundy-light transition-colors duration-300 line-clamp-2">
                       {article.title}
                     </h3>
 
@@ -174,7 +174,7 @@ const Articles = () => {
                       {article.summary}
                     </p>
 
-                    {/* Article Keywords (SEO helper tag list) */}
+                    {/* Article Keywords */}
                     <div className="flex flex-wrap gap-1.5 mb-2">
                       {article.keywords.slice(0, 3).map((keyword, kIdx) => (
                         <span key={kIdx} className="text-[10px] text-slate-400 bg-slate-50 px-2 py-0.5 rounded font-light border border-slate-100">
@@ -185,13 +185,13 @@ const Articles = () => {
                   </div>
 
                   {/* Read More Footer Button */}
-                  <div className="px-8 py-5 bg-slate-50 border-t border-slate-100 mt-auto flex justify-between items-center group-hover:bg-slate-900 group-hover:border-slate-900 transition-colors duration-300">
+                  <div className="px-8 py-5 bg-slate-50 border-t border-slate-100 mt-auto flex justify-between items-center group-hover:bg-burgundy-muted group-hover:border-burgundy-muted transition-colors duration-300">
                     <span className="text-xs text-slate-500 font-bold uppercase tracking-wider group-hover:text-white transition-colors duration-300">
                       Makaleyi Oku
                     </span>
                     <button
                       onClick={() => setActiveArticle(article)}
-                      className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-slate-900 border border-slate-200 group-hover:bg-gold group-hover:text-white group-hover:border-gold transition-all duration-300 shadow-sm"
+                      className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-slate-900 border border-slate-200 group-hover:bg-burgundy-light group-hover:text-white group-hover:border-burgundy-light transition-all duration-300 shadow-sm"
                       aria-label={`${article.title} makalesini okuyun`}
                     >
                       <ArrowRight className="w-4 h-4" />
@@ -200,7 +200,7 @@ const Articles = () => {
                 </motion.article>
               ))
             ) : (
-              <div className="col-span-full text-center py-16 bg-white border border-slate-100 rounded-lg shadow-sm">
+              <div className="col-span-full text-center py-16 bg-white border border-slate-150 rounded-lg shadow-sm">
                 <p className="text-slate-500 font-light">Aramanızla eşleşen hukuki yayın bulunamadı.</p>
               </div>
             )}
@@ -228,7 +228,7 @@ const Articles = () => {
               {/* Modal Header */}
               <div className="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-slate-150 px-6 md:px-10 py-5 flex items-center justify-between z-10">
                 <div className="flex items-center gap-3">
-                  <span className="bg-gold/10 text-gold-dark text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded">
+                  <span className="bg-burgundy-light/10 text-burgundy-light text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded">
                     {activeArticle.category}
                   </span>
                   <span className="text-slate-400 text-xs hidden sm:inline">|</span>
@@ -255,15 +255,15 @@ const Articles = () => {
                 {/* Article Info Bar */}
                 <div className="flex flex-wrap items-center gap-6 mb-8 text-sm text-slate-500 pb-6 border-b border-slate-100">
                   <div className="flex items-center gap-2">
-                    <User className="w-4 h-4 text-gold" />
+                    <User className="w-4 h-4 text-burgundy-light" />
                     <span className="font-semibold">Av. Enes Yıldırım</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-gold sm:hidden" />
+                    <Calendar className="w-4 h-4 text-burgundy-light sm:hidden" />
                     <span className="sm:hidden">{activeArticle.date}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-gold" />
+                    <Clock className="w-4 h-4 text-burgundy-light" />
                     <span>{activeArticle.readTime}</span>
                   </div>
                 </div>
@@ -271,13 +271,12 @@ const Articles = () => {
                 {/* Article Contents */}
                 <div className="space-y-6 text-slate-700 leading-relaxed font-light text-base md:text-lg">
                   {activeArticle.content.map((paragraph, index) => {
-                    // Check if it has headings inside paragraphs (split by newline and make bold/headers)
                     if (paragraph.includes('\n')) {
                       const lines = paragraph.split('\n');
                       return (
                         <div key={index} className="space-y-4">
                           <h4 className="text-lg font-bold text-slate-900 mt-6 font-serif flex items-center gap-2">
-                            <span className="w-1.5 h-6 bg-gold rounded-full inline-block"></span>
+                            <span className="w-1.5 h-6 bg-burgundy-light rounded-full inline-block"></span>
                             {lines[0]}
                           </h4>
                           {lines.slice(1).map((line, lIdx) => (
@@ -290,7 +289,7 @@ const Articles = () => {
                   })}
                 </div>
 
-                {/* Article Footer Keywords (SEO support) */}
+                {/* Article Footer Keywords */}
                 <div className="mt-12 pt-6 border-t border-slate-100">
                   <h5 className="text-xs uppercase tracking-wider font-bold text-slate-400 mb-3">Anahtar Kelimeler</h5>
                   <div className="flex flex-wrap gap-2">
@@ -312,7 +311,7 @@ const Articles = () => {
                 <a
                   href="#iletisim"
                   onClick={() => setActiveArticle(null)}
-                  className="px-6 py-3 bg-slate-900 text-white rounded text-sm font-bold uppercase tracking-wider hover:bg-gold transition-colors duration-300 inline-block text-center shadow-lg"
+                  className="px-6 py-3 bg-burgundy-dark text-white rounded text-sm font-bold uppercase tracking-wider hover:bg-burgundy-light transition-colors duration-300 inline-block text-center shadow-lg"
                 >
                   Ücretsiz Ön Görüşme Yapın
                 </a>
