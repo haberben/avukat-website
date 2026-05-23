@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 const Contact = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -11,14 +12,42 @@ const Contact = () => {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate submission
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormData({ name: '', phone: '', email: '', message: '' });
-    }, 4000);
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/av.enessyildirim@gmail.com", {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          "Ad Soyad": formData.name,
+          "Telefon": formData.phone,
+          "E-posta": formData.email,
+          "Mesaj": formData.message,
+          "_subject": "Avukat Enes Yıldırım Web Sitesi - Yeni İletişim Formu"
+        })
+      });
+      
+      if (response.ok) {
+        setFormSubmitted(true);
+        setFormData({ name: '', phone: '', email: '', message: '' });
+        // Auto reset success message after 6 seconds
+        setTimeout(() => {
+          setFormSubmitted(false);
+        }, 6000);
+      } else {
+        alert("Mesajınız gönderilemedi. Lütfen daha sonra tekrar deneyiniz.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Bir bağlantı hatası oluştu. Lütfen internet bağlantınızı kontrol edip tekrar deneyiniz.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -92,9 +121,12 @@ const Contact = () => {
                     <Mail className="text-gold w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="text-white text-base font-bold mb-1 font-sans">E-Posta Adresi</h4>
-                    <a href="mailto:info@avukatenesyildirim.com" className="text-slate-300 font-light text-xs sm:text-sm break-all hover:text-gold transition-colors block">
-                      info@avukatenesyildirim.com
+                    <h4 className="text-white text-base font-bold mb-1 font-sans">E-Posta Adreslerimiz</h4>
+                    <a href="mailto:av.enessyildirim@gmail.com" className="text-slate-300 font-light text-xs sm:text-sm break-all hover:text-gold transition-colors block">
+                      av.enessyildirim@gmail.com
+                    </a>
+                    <a href="mailto:yildirimlawpartners@gmail.com" className="text-slate-300 font-light text-xs sm:text-sm break-all hover:text-gold transition-colors block mt-1">
+                      yildirimlawpartners@gmail.com
                     </a>
                   </div>
                 </div>
@@ -188,10 +220,11 @@ const Contact = () => {
 
                   <button 
                     type="submit" 
-                    className="w-full sm:w-auto bg-slate-900 hover:bg-gold text-white hover:text-slate-950 font-bold py-4 px-10 rounded transition-all duration-300 uppercase tracking-widest text-xs flex items-center justify-center gap-2 hover:shadow-lg shadow-gold/10 active:scale-98"
+                    disabled={isSubmitting}
+                    className="w-full sm:w-auto bg-slate-900 hover:bg-gold text-white hover:text-slate-950 disabled:bg-slate-300 disabled:text-slate-500 font-bold py-4 px-10 rounded transition-all duration-300 uppercase tracking-widest text-xs flex items-center justify-center gap-2 hover:shadow-lg shadow-gold/10 active:scale-98 disabled:pointer-events-none"
                   >
                     <Send className="w-4 h-4" />
-                    <span>Mesajı Gönder</span>
+                    <span>{isSubmitting ? 'Gönderiliyor...' : 'Mesajı Gönder'}</span>
                   </button>
                 </motion.form>
               ) : (

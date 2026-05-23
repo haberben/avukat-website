@@ -34,9 +34,9 @@ const Navbar = () => {
               <Phone className="w-3.5 h-3.5 text-gold" />
               <span>0545 561 94 65</span>
             </a>
-            <a href="mailto:info@avukatenesyildirim.com" className="flex items-center gap-2 hover:text-gold transition-colors">
+            <a href="mailto:av.enessyildirim@gmail.com" className="flex items-center gap-2 hover:text-gold transition-colors">
               <Mail className="w-3.5 h-3.5 text-gold" />
-              <span>info@avukatenesyildirim.com</span>
+              <span>av.enessyildirim@gmail.com</span>
             </a>
           </div>
           <div className="flex items-center gap-2 text-slate-400">
@@ -129,9 +129,9 @@ const Navbar = () => {
                     <Phone className="w-4 h-4 text-gold" />
                     <span>0545 561 94 65</span>
                   </a>
-                  <a href="mailto:info@avukatenesyildirim.com" className="flex items-center gap-3 py-2 text-slate-300 hover:text-gold transition-colors">
+                  <a href="mailto:av.enessyildirim@gmail.com" className="flex items-center gap-3 py-2 text-slate-300 hover:text-gold transition-colors">
                     <Mail className="w-4 h-4 text-gold" />
-                    <span className="break-all">info@avukatenesyildirim.com</span>
+                    <span className="break-all">av.enessyildirim@gmail.com</span>
                   </a>
                   <div className="flex items-start gap-3 py-2">
                     <MapPin className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />

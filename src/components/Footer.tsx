@@ -81,11 +81,16 @@ const Footer = () => {
                   0545 561 94 65
                 </a>
               </li>
-              <li className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-gold flex-shrink-0" />
-                <a href="mailto:info@avukatenesyildirim.com" className="hover:text-gold transition-colors break-all">
-                  info@avukatenesyildirim.com
-                </a>
+              <li className="flex items-start gap-2.5">
+                <Mail className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
+                <div className="flex flex-col gap-1.5">
+                  <a href="mailto:av.enessyildirim@gmail.com" className="hover:text-gold transition-colors break-all">
+                    av.enessyildirim@gmail.com
+                  </a>
+                  <a href="mailto:yildirimlawpartners@gmail.com" className="hover:text-gold transition-colors break-all">
+                    yildirimlawpartners@gmail.com
+                  </a>
+                </div>
               </li>
             </ul>
           </div>
