@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Search, X, Calendar, Clock, User, ArrowRight } from 'lucide-react';
+import { useSite } from '../context/SiteContext';
 
 interface Article {
-  id: number;
+  id: string;
   title: string;
   category: string;
   date: string;
@@ -11,64 +12,17 @@ interface Article {
   summary: string;
   content: string[];
   keywords: string[];
+  image?: string;
 }
-
-const articlesData: Article[] = [
-  {
-    id: 1,
-    title: 'Kira Sözleşmelerinde Tahliye Taahhütnamesi ve Tahliye Davaları',
-    category: 'Kira Hukuku',
-    date: '12 Mayıs 2026',
-    readTime: '6 dk okuma',
-    summary: 'Kira hukukunda en çok uyuşmazlık yaşanan konulardan biri olan tahliye taahhütnamelerinin geçerlilik şartları, tahliye davaları ve yeni yasal düzenlemeler hakkında detaylı rehber.',
-    keywords: ['kira tahliye davası', 'tahliye taahhütnamesi geçerlilik şartları', 'kiracı tahliyesi nasıl yapılır', 'Bayrampaşa kira avukatı'],
-    content: [
-      'Türkiye\'de son yıllarda yaşanan ekonomik gelişmeler ve gayrimenkul değerlerindeki artış, kiracı ile kiralayan (ev sahibi) arasındaki uyuşmazlıkları zirveye taşımıştır. Bu uyuşmazlıkların en önemli çözüm yollarından biri de tahliye davaları ve geçerli bir tahliye taahhütnamesinin varlığıdır. Avukat Enes Yıldırım Hukuk Bürosu olarak, kira hukukundan doğan bu hassas süreçleri profesyonel şekilde yönetmekteyiz.',
-      'Tahliye Taahhütnamesinin Geçerlilik Şartları Nelerdir? \nTürk Borçlar Kanunu (TBK) kapsamında tahliye taahhütnamesinin geçerli kabul edilebilmesi için belirli şekil ve zaman kurallarına sıkı sıkıya bağlı olması gerekir. Yargıtay içtihatları doğrultusunda geçerlilik şartları şunlardır:\n1. Yazılı Şekil Şartı: Taahhüt mutlaka yazılı olmalıdır. Adi yazılı veya noter huzurunda yapılması geçerlidir ancak ispat kolaylığı açısından noterlikçe yapılması tavsiye edilir.\n2. Kiralananın Tesliminden Sonra Verilmiş Olması: En kritik unsur budur. Kira sözleşmesi imzalanırken veya imza tarihinden önce alınan tahliye taahhütnameleri, kiracının müzayede (baskı) altında olduğu kabul edilerek geçersiz sayılır. Taahhüt, kiracı eve yerleştikten ve sözleşmeden makul bir süre geçtikten sonra imzalanmalıdır.\n3. Belirli Bir Tahliye Tarihinin Bulunması: Taahhütnamede tahliyenin yapılacağı gün, ay ve yıl net olarak belirtilmelidir.',
-      'Tahliye Davası ve Süresi \nGeçerli bir tahliye taahhütnamesine dayanarak kiracısını çıkarmak isteyen ev sahibi, taahhüt edilen tahliye tarihinden itibaren 1 (bir) ay içinde icra dairesine başvurarak tahliye takibi başlatmalı veya sulh hukuk mahkemesinde tahliye davası açmalıdır. Bu 1 aylık süre hak düşürücü niteliktedir; sürenin kaçırılması halinde taahhütnameye dayanarak doğrudan tahliye hakkı o dönem için kaybedilir.',
-      'İhtiyaç Nedeniyle Tahliye ve Haklı İhtarlar \nSözleşme süresinin bitimi, ev sahibinin kendisinin, eşinin, altsoyunun, üstsoyunun veya kanunen bakmakla yükümlü olduğu diğer kişilerin konut veya işyeri ihtiyacı ortaya çıkarsa, TBK m. 350 uyarınca tahliye davası açılabilir. Ayrıca kiracının bir kira yılı içerisinde kirayı iki kez geciktirmesi ve bu durumun iki haklı ihtar ile belgelenmesi halinde de ev sahibi tahliye davası açma hakkı kazanır. İstanbul Bayrampaşa ve çevre ilçelerindeki kira uyuşmazlıklarında hak kaybına uğramamak adına bir gayrimenkul avukatından hukuki destek alınması hayati önem taşımaktadır.'
-    ]
-  },
-  {
-    id: 2,
-    title: 'İş Hukukunda Kıdem ve İhbar Tazminatı Hakları ve Hesaplama Usulü',
-    category: 'İş Hukuku',
-    date: '02 Nisan 2026',
-    readTime: '8 dk okuma',
-    summary: 'İş sözleşmesinin feshinde çalışanların en temel güvencesi olan kıdem ve ihbar tazminatına hak kazanma koşulları, haklı fesih nedenleri ve güncel hesaplama esasları.',
-    keywords: ['kıdem tazminatı nasıl alınır', 'ihbar tazminatı hesaplama', 'işe iade davası süresi', 'Bayrampaşa iş hukuku avukatı', 'İstanbul iş davası avukatı'],
-    content: [
-      'İşçi ve işveren arasındaki ilişkileri düzenleyen 4857 sayılı İş Kanunu, zayıf konumda olan işçiyi koruma ilkesini benimsemiştir. İş ilişkisinin sona ermesi durumunda ortaya çıkan kıdem tazminatı ve ihbar tazminatı hakları, işçinin emeğinin ve yıllar boyu verdiği hizmetin yasal güvenceleridir. Bu yazımızda, tazminat haklarının kapsamını ve uyuşmazlık durumunda yapılması gerekenleri mercek altına alıyoruz.',
-      'Kıdem Tazminatına Hak Kazanma Şartları \nBir işçinin kıdem tazminatına hak kazanabilmesi için öncelikle aynı işverene bağlı işyerinde en az 1 (bir) tam yıl çalışmış olması gerekir. İkinci temel şart ise iş sözleşmesinin kanunda belirtilen tazminata hak kazandıracak şekilde sona ermiş olmasıdır. İşçinin kendi isteğiyle istifa etmesi kural olarak kıdem tazminatına hak kazandırmaz. Ancak; \n- İşçinin haklı nedenle derhal fesih yapması (Maaşın düzensiz ödenmesi, mobbing, SGK primlerinin eksik yatırılması vb.)\n- Askerlik görevi nedeniyle işten ayrılma\n- Emeklilik hakkının kazanılması\n- Kadın işçinin evlendiği tarihten itibaren 1 yıl içinde sözleşmeyi feshetmesi gibi durumlarda istifa halinde dahi kıdem tazminatı ödenmek zorundadır.',
-      'İhbar Tazminatı ve Bildirim Süreleri \nİş sözleşmesini feshetmek isteyen taraf (işçi veya işveren), bunu kanunda belirlenen bildirim sürelerine uyarak karşı tarafa bildirmekle yükümlüdür. Bildirim süreleri işçinin kıdemine göre belirlenir: \n- 6 aya kadar çalışanlar için: 2 hafta \n- 6 aydan 1.5 yıla kadar çalışanlar için: 4 hafta \n- 1.5 yıldan 3 yıla kadar çalışanlar için: 6 hafta \n- 3 yıldan fazla çalışanlar için: 8 hafta. \nİşveren, bu bildirim sürelerine uymadan işçiyi derhal işten çıkarırsa, bildirim süresine ilişkin ücret tutarında ihbar tazminatı ödemekle yükümlü olur. Aynı şekilde işçi de bildirim süresine uymadan haklı bir nedeni olmaksızın işi bırakırsa işverene ihbar tazminatı ödemek zorunda kalabilir.',
-      'Arabuluculuk ve Dava Süreçleri \nİş hukuku uyuşmazlıklarında (tazminatlar, fazla mesai, yıllık izin ücretleri vb.) dava açmadan önce arabulucuya başvurmak zorunlu dava şartıdır. Arabuluculuk aşamasında anlaşma sağlanamazsa, 2 hafta içinde İş Mahkemesi\'nde dava açılması gerekir. İşçilik alacakları davaları teknik ve hesaplama uzmanlığı gerektiren davalardır. Hak kaybı yaşamamak ve alacaklarınızı eksiksiz tahsil edebilmek için profesyonel bir iş hukuku avukatından destek almanız kritiktir.'
-    ]
-  },
-  {
-    id: 3,
-    title: 'Anlaşmalı ve Çekişmeli Boşanma Davaları ve Protokolün Önemi',
-    category: 'Aile Hukuku',
-    date: '20 Mart 2026',
-    readTime: '7 dk okuma',
-    summary: 'Türk Medeni Kanunu uyarınca anlaşmalı ve çekişmeli boşanma davalarının hukuki süreçleri, velayet, nafaka, mal paylaşımı ve hak kayıplarını önleyecek protokol hazırlama esasları.',
-    keywords: ['anlaşmalı boşanma protokolü örneği', 'boşanma davası nasıl açılır', 'çekişmeli boşanmada mal paylaşımı', 'İstanbul boşanma avukatı', 'Bayrampaşa aile mahkemesi'],
-    content: [
-      'Boşanma süreçleri taraflar için sadece psikolojik olarak değil, hukuki ve finansal olarak da oldukça yıpratıcı olabilmektedir. Türk Medeni Kanunu (TMK) kapsamında boşanma davaları "Anlaşmalı" ve "Çekişmeli" olmak üzere iki temel usulle yürütülür. Davanın doğru temellerde açılması ve yönetilmesi, özellikle velayet, nafaka ve mal paylaşımı konularında geleceğinizi doğrudan etkiler.',
-      'Anlaşmalı Boşanma Davası Şartları \nAnlaşmalı boşanma, çekişmeli sürece göre çok daha kısa süren (genellikle tek celsede sonuçlanan) ve tarafların uzlaşarak ayrıldığı yöntemdir. Anlaşmalı boşanma davası açabilmek için şu şartların birlikte gerçekleşmesi zorunludur:\n1. Evliliğin En Az 1 Yıl Sürmüş Olması: 1 yıldan kısa süren evliliklerde anlaşmalı boşanma davası açılamaz.\n2. Eşlerin Mahkemeye Birlikte Başvurması veya Bir Eşin Açtığı Davayı Diğerinin Kabul Etmesi.\n3. Hakimin Tarafları Bizzat Dinlemesi: Avukatınız olsa dahi, anlaşmalı boşanma duruşmasında hakim karşısına çıkıp boşanma iradenizi sözlü olarak beyan etmeniz gerekir.\n4. Anlaşmalı Boşanma Protokolünün Hazırlanması: Velayet, nafaka, iştirak nafakası, mal paylaşımı, maddi ve manevi tazminat gibi tüm hususları içeren yazılı bir protokol hazırlanmalı ve hakim tarafından onaylanmalıdır.',
-      'Anlaşmalı Boşanma Protokolünün Hayati Önemi \nProtokolün muğlak ifadeler barındırması veya hak kayıplarına yol açacak şekilde aceleyle hazırlanması, boşanma sonrasında yıllarca sürecek yeni uyuşmazlıklara (nafakanın artırılması, velayetin değiştirilmesi, mal kaçırma davaları vb.) yol açar. Bu nedenle, protokolün her maddesinin uzman bir boşanma avukatı tarafından titizlikle kaleme alınması büyük önem taşır.',
-      'Çekişmeli Boşanma Davası ve Süreç \nEşler arasında boşanmanın mali sonuçları veya velayet gibi konularda anlaşma sağlanamadığı takdirde çekişmeli boşanma davası yoluna gidilir. Çekişmeli davalar; zina, hayata kast, pek kötü muamele, suç işleme, terk veya evlilik birliğinin temelinden sarsılması (şiddetli geçimsizlik) gibi özel ve genel boşanma sebeplerine dayandırılabilir. Çekişmeli boşanma davalarında iddiaların tanık, mesajlaşma kayıtları, otel kayıtları, banka hareketleri gibi hukuken geçerli delillerle kanıtlanması gerekir. Dava süreci 1.5 ila 3 yıl arasında sürebilmektedir.'
-    ]
-  }
-];
 
 const Articles = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('Hepsi');
+  const { articles, selectedCategory, setSelectedCategory } = useSite();
   const [activeArticle, setActiveArticle] = useState<Article | null>(null);
 
-  const categories = ['Hepsi', 'Kira Hukuku', 'İş Hukuku', 'Aile Hukuku'];
+  const categories = ['Hepsi', ...Array.from(new Set(articles.map((art) => art.category)))];
 
-  const filteredArticles = articlesData.filter((article) => {
+  const filteredArticles = articles.filter((article) => {
     const matchesSearch =
       article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       article.summary.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -152,6 +106,15 @@ const Articles = () => {
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   className="bg-white rounded-lg overflow-hidden border border-slate-150 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col group"
                 >
+                  {article.image && (
+                    <div className="w-full h-48 overflow-hidden border-b border-slate-100 flex-shrink-0">
+                      <img
+                        src={article.image}
+                        alt={article.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
+                      />
+                    </div>
+                  )}
                   <div className="p-8 flex-grow">
                     {/* Category Label */}
                     <div className="flex items-center justify-between mb-4">
@@ -267,6 +230,17 @@ const Articles = () => {
                     <span>{activeArticle.readTime}</span>
                   </div>
                 </div>
+
+                {/* Dynamic Image in Modal */}
+                {activeArticle.image && (
+                  <div className="w-full h-64 md:h-96 rounded-lg overflow-hidden mb-8 border border-slate-100 shadow-sm flex-shrink-0">
+                    <img
+                      src={activeArticle.image}
+                      alt={activeArticle.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
 
                 {/* Article Contents */}
                 <div className="space-y-6 text-slate-700 leading-relaxed font-light text-base md:text-lg">

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -9,8 +10,22 @@ import Faq from './components/Faq';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
+import AdminPanel from './components/AdminPanel';
+import { useSite } from './context/SiteContext';
+import { Lock } from 'lucide-react';
 
 function App() {
+  const { adminLoggedIn } = useSite();
+  const [isAdminView, setIsAdminView] = useState(false);
+
+  useEffect(() => {
+    const checkHash = () => {
+      setIsAdminView(window.location.hash === '#admin');
+    };
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
+    return () => window.removeEventListener('hashchange', checkHash);
+  }, []);
   // SEO Schema markup (JSON-LD) for Google Rich Snippets (LegalService schema)
   const schemaMarkup = {
     "@context": "https://schema.org",
@@ -101,8 +116,12 @@ function App() {
     ]
   };
 
+  if (isAdminView) {
+    return <AdminPanel />;
+  }
+
   return (
-    <div className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-silver selection:text-burgundy-dark">
+    <div className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-silver selection:text-burgundy-dark font-sans">
       <Helmet>
         {/* Basic SEO Tags */}
         <title>Avukat Enes Yıldırım | İstanbul Bayrampaşa Avukat ve Danışmanlık</title>
@@ -151,8 +170,23 @@ function App() {
 
       {/* Floating WhatsApp Action Button */}
       <WhatsAppButton />
+
+      {/* Floating Admin Button for Quick Access */}
+      {adminLoggedIn && (
+        <a
+          href="#admin"
+          className="fixed bottom-6 left-6 z-50 p-4 bg-burgundy hover:bg-burgundy-light text-white rounded-full shadow-2xl hover:scale-105 transition-all border border-white/10 flex items-center justify-center group"
+          title="Yönetim Paneline Git"
+        >
+          <Lock className="w-5 h-5 text-silver" />
+          <span className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-2 transition-all duration-300 ease-in-out text-xs uppercase tracking-wider font-bold whitespace-nowrap">
+            Yönetim Paneli
+          </span>
+        </a>
+      )}
     </div>
   )
+
 }
 
 export default App;

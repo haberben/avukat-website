@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Scale, Phone, Mail, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSite } from '../context/SiteContext';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { menus, changeCategoryAndScroll } = useSite();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,15 +15,6 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const navLinks = [
-    { name: 'Ana Sayfa', href: '#anasayfa' },
-    { name: 'Uzmanlıklar', href: '#hizmetler' },
-    { name: 'Hakkımızda', href: '#hakkimda' },
-    { name: 'Bilgi Bankası', href: '#yayinlar' },
-    { name: 'Yorumlar', href: '#yorumlar' },
-    { name: 'İletişim', href: '#iletisim' },
-  ];
 
   return (
     <header className="fixed w-full top-0 left-0 z-50 transition-all duration-300">
@@ -73,16 +66,40 @@ const Navbar = () => {
 
           {/* Desktop Nav Links */}
           <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-xs uppercase tracking-widest font-bold text-silver-dark hover:text-silver transition-colors duration-300 relative py-1 group"
-              >
-                {link.name}
-                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-silver group-hover:w-full transition-all duration-300"></span>
-              </a>
-            ))}
+            {menus.map((link) => {
+              if (link.subMenus && link.subMenus.length > 0) {
+                return (
+                  <div key={link.id} className="relative py-1 group cursor-pointer">
+                    <span className="text-xs uppercase tracking-widest font-bold text-silver-dark group-hover:text-silver transition-colors duration-300 flex items-center gap-1">
+                      {link.name}
+                      <svg className="w-3.5 h-3.5 transform group-hover:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                    </span>
+                    {/* Dropdown Menu */}
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 rounded bg-burgundy-dark/95 backdrop-blur-md border border-white/10 shadow-2xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                      {link.subMenus.map((sub) => (
+                        <button
+                          key={sub.id}
+                          onClick={() => changeCategoryAndScroll(sub.categoryName)}
+                          className="w-full text-left px-4 py-2.5 text-[10px] text-silver-dark hover:text-white hover:bg-white/5 transition-colors font-bold uppercase tracking-wider block"
+                        >
+                          {sub.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+              return (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  className="text-xs uppercase tracking-widest font-bold text-silver-dark hover:text-silver transition-colors duration-300 relative py-1 group"
+                >
+                  {link.name}
+                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-silver group-hover:w-full transition-all duration-300"></span>
+                </a>
+              );
+            })}
             <a
               href="#iletisim"
               className="px-6 py-3 bg-gradient-to-r from-silver to-silver-dark text-burgundy-dark hover:shadow-[0_4px_20px_rgba(209,213,219,0.25)] hover:scale-[1.02] transition-all duration-300 text-xs font-bold uppercase tracking-widest rounded"
@@ -112,16 +129,41 @@ const Navbar = () => {
               className="lg:hidden absolute top-full left-0 w-full bg-burgundy-dark border-b border-white/10 shadow-2xl overflow-hidden"
             >
               <div className="flex flex-col px-6 py-6 space-y-4 max-h-[85vh] overflow-y-auto">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="text-sm font-bold uppercase tracking-widest text-silver hover:text-silver-bright transition-colors py-3 border-b border-white/5"
-                  >
-                    {link.name}
-                  </a>
-                ))}
+                {menus.map((link) => {
+                  if (link.subMenus && link.subMenus.length > 0) {
+                    return (
+                      <div key={link.id} className="flex flex-col py-1 border-b border-white/5">
+                        <span className="text-sm font-bold uppercase tracking-widest text-silver py-2">
+                          {link.name}
+                        </span>
+                        <div className="pl-4 space-y-1 pb-2">
+                          {link.subMenus.map((sub) => (
+                            <button
+                              key={sub.id}
+                              onClick={() => {
+                                setIsMenuOpen(false);
+                                changeCategoryAndScroll(sub.categoryName);
+                              }}
+                              className="w-full text-left py-2.5 text-xs font-bold uppercase tracking-wider text-silver-dark hover:text-white transition-colors block"
+                            >
+                              • {sub.name}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  }
+                  return (
+                    <a
+                      key={link.id}
+                      href={link.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="text-sm font-bold uppercase tracking-widest text-silver hover:text-silver-bright transition-colors py-3 border-b border-white/5"
+                    >
+                      {link.name}
+                    </a>
+                  );
+                })}
                 
                 {/* Mobile Quick Info */}
                 <div className="pt-6 space-y-4 text-xs text-silver-dark">
