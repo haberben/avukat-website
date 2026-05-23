@@ -1,62 +1,122 @@
-import { Scale } from 'lucide-react';
+import { Scale, Phone, Mail, MapPin, ArrowUp } from 'lucide-react';
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer className="bg-slate-900 pt-20 pb-10 border-t-4 border-gold">
-      <div className="container mx-auto px-6 lg:px-16">
-        <div className="grid md:grid-cols-12 gap-12 mb-16">
+    <footer className="bg-slate-950 pt-20 pb-10 border-t-2 border-gold relative overflow-hidden">
+      
+      {/* Subtle background glow */}
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-gold/5 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-16 relative z-10">
+        
+        {/* Footer Top Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
           
-          <div className="md:col-span-4">
-            <a href="#" className="flex items-center gap-3 mb-6">
-              <Scale className="text-gold w-10 h-10" />
+          {/* Column 1: Brand & Bio */}
+          <div className="md:col-span-5 flex flex-col items-start">
+            <a href="#" className="flex items-center gap-3 mb-6 group">
+              <div className="w-9 h-9 rounded bg-gold/15 flex items-center justify-center text-gold group-hover:scale-105 transition-transform">
+                <Scale className="w-5.5 h-5.5" />
+              </div>
               <div className="flex flex-col">
-                 <span className="font-serif text-2xl font-bold tracking-wide text-white leading-none">
-                  Av. Enes Yıldırım
-                 </span>
-                 <span className="text-[11px] uppercase tracking-widest text-slate-400 mt-1 font-semibold">İstanbul Barosu</span>
+                <span className="font-serif text-xl font-bold tracking-wide text-white leading-none">
+                  AVUKAT ENES YILDIRIM
+                </span>
+                <span className="text-[9px] uppercase tracking-widest text-slate-400 mt-1 font-bold">İstanbul Barosu</span>
               </div>
             </a>
-            <p className="text-slate-400 leading-relaxed font-light text-sm max-w-sm">
-              Müvekkillerimize stratejik, sonuç odaklı ve profesyonel hukuki danışmanlık ile dava takibi hizmetleri sunmaktayız. Haklarınız güvence altında.
+            <p className="text-slate-400 leading-relaxed font-light text-sm max-w-sm mb-6">
+              Müvekkillerimize stratejik, sonuç odaklı ve profesyonel hukuki danışmanlık ile dava takibi hizmetleri sunmaktayız. Haklarınız bizimle güvence altında.
             </p>
           </div>
 
-          <div className="md:col-span-2 md:col-start-7">
-            <h4 className="text-white font-serif font-bold text-lg mb-6 flex items-center gap-2">
-              <span className="w-4 h-[2px] bg-gold"></span> Menü
+          {/* Column 2: Navigation Links */}
+          <div className="md:col-span-3 md:col-start-7">
+            <h4 className="text-white font-serif font-bold text-base mb-6 flex items-center gap-2">
+              <span className="w-4.5 h-[1.5px] bg-gold rounded-full"></span> Menü
             </h4>
-            <ul className="space-y-3 font-light text-sm uppercase tracking-wide">
-              {['Ana Sayfa', 'Hizmetlerimiz', 'Hakkımızda', 'Yorumlar', 'İletişim'].map((link) => (
-                <li key={link}>
-                  <a href={`#${link.toLowerCase().replace(/\s+/g, '').replace('ı', 'i').replace('ş', 's').replace('ç', 'c')}`} className="text-slate-400 hover:text-gold transition-colors block">
-                    {link}
-                  </a>
-                </li>
-              ))}
+            <ul className="space-y-3 font-light text-sm uppercase tracking-wider text-slate-400">
+              <li>
+                <a href="#anasayfa" className="hover:text-gold transition-colors block">Ana Sayfa</a>
+              </li>
+              <li>
+                <a href="#hizmetler" className="hover:text-gold transition-colors block">Uzmanlık Alanları</a>
+              </li>
+              <li>
+                <a href="#hakkimda" className="hover:text-gold transition-colors block">Hakkımızda</a>
+              </li>
+              <li>
+                <a href="#yayinlar" className="hover:text-gold transition-colors block">Bilgi Bankası</a>
+              </li>
+              <li>
+                <a href="#yorumlar" className="hover:text-gold transition-colors block">Yorumlar</a>
+              </li>
+              <li>
+                <a href="#iletisim" className="hover:text-gold transition-colors block">İletişim</a>
+              </li>
             </ul>
           </div>
 
+          {/* Column 3: Contact Details */}
           <div className="md:col-span-3">
-            <h4 className="text-white font-serif font-bold text-lg mb-6 flex items-center gap-2">
-              <span className="w-4 h-[2px] bg-gold"></span> Hizmetler
+            <h4 className="text-white font-serif font-bold text-base mb-6 flex items-center gap-2">
+              <span className="w-4.5 h-[1.5px] bg-gold rounded-full"></span> İletişim
             </h4>
-            <ul className="space-y-3 text-slate-400 font-light text-sm">
-              <li><a href="#hizmetler" className="hover:text-gold transition-colors inline-block">Ceza Hukuku</a></li>
-              <li><a href="#hizmetler" className="hover:text-gold transition-colors inline-block">Boşanma & Aile Hukuku</a></li>
-              <li><a href="#hizmetler" className="hover:text-gold transition-colors inline-block">Gayrimenkul Hukuku</a></li>
-              <li><a href="#hizmetler" className="hover:text-gold transition-colors inline-block">Miras Hukuku</a></li>
-              <li><a href="#hizmetler" className="hover:text-gold transition-colors inline-block">İş Hukuku</a></li>
+            <ul className="space-y-4 text-slate-400 font-light text-sm">
+              <li className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
+                <span className="leading-relaxed">
+                  Yıldırım Mahallesi Zafer Caddesi No:71B Bayrampaşa/İstanbul
+                </span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Phone className="w-4 h-4 text-gold flex-shrink-0" />
+                <a href="tel:+905455619465" className="hover:text-gold transition-colors">
+                  0545 561 94 65
+                </a>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Mail className="w-4 h-4 text-gold flex-shrink-0" />
+                <a href="mailto:info@avukatenesyildirim.com" className="hover:text-gold transition-colors break-all">
+                  info@avukatenesyildirim.com
+                </a>
+              </li>
             </ul>
           </div>
+
         </div>
 
-        <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm font-light">
-          <p>© {new Date().getFullYear()} Avukat Enes Yıldırım. Tüm hakları saklıdır.</p>
-          <div className="mt-4 md:mt-0 flex space-x-6">
+        {/* Footer Bottom Bar */}
+        <div className="border-t border-slate-900 pt-8 flex flex-col-reverse md:flex-row justify-between items-center gap-4 text-slate-500 text-xs sm:text-sm font-light">
+          
+          <div className="text-center md:text-left">
+            <p>© {currentYear} Avukat Enes Yıldırım. Tüm hakları saklıdır.</p>
+            <p className="text-[10px] text-slate-600 mt-1">
+              Bu sitede yer alan bilgiler Türkiye Barolar Birliği'nin meslek kurallarına uygun olarak hazırlanmıştır ve reklam amacı taşımaz.
+            </p>
+          </div>
+
+          {/* Privacy Links & Scroll to Top */}
+          <div className="flex flex-wrap justify-center items-center gap-6">
             <a href="#" className="hover:text-gold transition-colors">Gizlilik Politikası</a>
             <a href="#" className="hover:text-gold transition-colors">KVKK Aydınlatma Metni</a>
+            <button
+              onClick={scrollToTop}
+              className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 hover:border-gold hover:text-gold active:scale-95 transition-all flex items-center justify-center text-slate-400"
+              aria-label="Yukarı Çık"
+            >
+              <ArrowUp className="w-4.5 h-4.5" />
+            </button>
           </div>
+
         </div>
+
       </div>
     </footer>
   );
