@@ -77,18 +77,18 @@ const AdminPanel: React.FC = () => {
       setAboutDetailsStateText((officeInfo.aboutDetails || []).join('\n\n'));
       
       const defaultStats = [
-        { id: 'stat-1', value: '5+', label: 'Yıllık Deneyim', iconName: 'Clock' },
-        { id: 'stat-2', value: '500+', label: 'Çözülen Dosya', iconName: 'Award' },
-        { id: 'stat-3', value: '%96', label: 'Başarı Oranı', iconName: 'Award' },
-        { id: 'stat-4', value: '7/24', label: 'Hukuki Danışma', iconName: 'HeartHandshake' }
+        { id: 'stat-1', value: '5+', label: 'Yıllık Deneyim', iconName: 'Clock', visible: true },
+        { id: 'stat-2', value: '500+', label: 'Çözülen Dosya', iconName: 'Award', visible: true },
+        { id: 'stat-3', value: '%96', label: 'Başarı Oranı', iconName: 'Award', visible: true },
+        { id: 'stat-4', value: '7/24', label: 'Hukuki Danışma', iconName: 'HeartHandshake', visible: true }
       ];
-      setStatsState(officeInfo.aboutStats && officeInfo.aboutStats.length > 0
+      setStatsState(officeInfo.aboutStats !== undefined
         ? officeInfo.aboutStats
         : defaultStats);
     }
   }, [officeInfo]);
 
-  const handleUpdateStatField = (index: number, field: keyof AboutStat, val: string) => {
+  const handleUpdateStatField = (index: number, field: keyof AboutStat, val: any) => {
     const newStats = [...statsState];
     newStats[index] = { ...newStats[index], [field]: val };
     setStatsState(newStats);
@@ -104,7 +104,8 @@ const AdminPanel: React.FC = () => {
       id: `stat-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       value: 'Yeni',
       label: 'İstatistik Açıklaması',
-      iconName: 'Award'
+      iconName: 'Award',
+      visible: true
     };
     setStatsState([...statsState, newStat]);
   };
@@ -1527,8 +1528,18 @@ const AdminPanel: React.FC = () => {
                   <div className="space-y-4">
                     {statsState.map((stat, index) => (
                       <div key={stat.id} className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center border border-slate-900 p-4 rounded bg-slate-900/10">
-                        <div className="md:col-span-3">
-                          <label className="block text-[10px] text-slate-400 font-bold mb-1">Değer (Örn: 5+ veya %96)</label>
+                        <div className="md:col-span-1 flex flex-col items-center justify-center pt-2 md:pt-4">
+                          <label className="block text-[10px] text-slate-500 font-bold mb-1">Göster</label>
+                          <input
+                            type="checkbox"
+                            checked={stat.visible !== false}
+                            onChange={(e) => handleUpdateStatField(index, 'visible', e.target.checked)}
+                            className="w-4 h-4 rounded text-burgundy bg-slate-900 border-slate-850 focus:ring-burgundy focus:ring-offset-slate-950"
+                            title="Göster/Gizle"
+                          />
+                        </div>
+                        <div className="md:col-span-2">
+                          <label className="block text-[10px] text-slate-400 font-bold mb-1">Değer (Örn: 5+)</label>
                           <input
                             type="text"
                             value={stat.value}
@@ -1564,7 +1575,7 @@ const AdminPanel: React.FC = () => {
                             <option value="Building">Bina (Ofis/Gayrimenkul)</option>
                           </select>
                         </div>
-                        <div className="md:col-span-2 flex justify-end gap-2 pt-4 md:pt-0">
+                        <div className="md:col-span-2 flex justify-end gap-2 pt-4 md:pt-4">
                           <button
                             type="button"
                             onClick={() => handleDeleteStat(index)}

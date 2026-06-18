@@ -18,21 +18,23 @@ const About = () => {
   const { officeInfo } = useSite();
 
   const defaultStats = [
-    { id: 'stat-1', value: '5+', label: 'Yıllık Deneyim', iconName: 'Clock' },
-    { id: 'stat-2', value: '500+', label: 'Çözülen Dosya', iconName: 'Award' },
-    { id: 'stat-3', value: '%96', label: 'Başarı Oranı', iconName: 'Award' },
-    { id: 'stat-4', value: '7/24', label: 'Hukuki Danışma', iconName: 'HeartHandshake' }
+    { id: 'stat-1', value: '5+', label: 'Yıllık Deneyim', iconName: 'Clock', visible: true },
+    { id: 'stat-2', value: '500+', label: 'Çözülen Dosya', iconName: 'Award', visible: true },
+    { id: 'stat-3', value: '%96', label: 'Başarı Oranı', iconName: 'Award', visible: true },
+    { id: 'stat-4', value: '7/24', label: 'Hukuki Danışma', iconName: 'HeartHandshake', visible: true }
   ];
 
-  const rawStats = officeInfo.aboutStats && officeInfo.aboutStats.length > 0
+  const rawStats = officeInfo.aboutStats !== undefined
     ? officeInfo.aboutStats
     : defaultStats;
 
-  const stats = rawStats.map(stat => ({
-    value: stat.value,
-    label: stat.label,
-    icon: getIconComponent(stat.iconName)
-  }));
+  const stats = rawStats
+    .filter(stat => stat.visible !== false)
+    .map(stat => ({
+      value: stat.value,
+      label: stat.label,
+      icon: getIconComponent(stat.iconName)
+    }));
 
   if (!officeInfo.aboutShowImage) {
     // Simple Contact Mode
@@ -137,24 +139,26 @@ const About = () => {
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-12 pt-8 border-t border-slate-250">
-              {stats.map((stat, idx) => (
-                <div 
-                  key={idx} 
-                  className="bg-white p-4 rounded border border-slate-200 shadow-sm flex flex-col justify-center items-center text-center hover:shadow-md transition-shadow duration-300"
-                >
-                  <div className="mb-2 w-9 h-9 rounded-full bg-burgundy-light/5 flex items-center justify-center">
-                    {stat.icon}
+            {stats.length > 0 && (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-12 pt-8 border-t border-slate-250">
+                {stats.map((stat, idx) => (
+                  <div 
+                    key={idx} 
+                    className="bg-white p-4 rounded border border-slate-200 shadow-sm flex flex-col justify-center items-center text-center hover:shadow-md transition-shadow duration-300"
+                  >
+                    <div className="mb-2 w-9 h-9 rounded-full bg-burgundy-light/5 flex items-center justify-center">
+                      {stat.icon}
+                    </div>
+                    <span className="text-2xl font-bold text-slate-900 font-serif leading-none mb-1">
+                      {stat.value}
+                    </span>
+                    <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+                      {stat.label}
+                    </span>
                   </div>
-                  <span className="text-2xl font-bold text-slate-900 font-serif leading-none mb-1">
-                    {stat.value}
-                  </span>
-                  <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
             
             <div className="mt-12 self-start">
               <a 
