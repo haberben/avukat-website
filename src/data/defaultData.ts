@@ -187,3 +187,35 @@ export const defaultArticles: Article[] = [
     ]
   }
 ];
+
+export interface OfficeInfo {
+  phone: string;
+  email: string;
+  emailSecondary: string;
+  address: string;
+  aboutTitle: string;
+  aboutDesc: string;
+  aboutPhone: string;
+  aboutShowImage: boolean;
+  aboutImage: string;
+  aboutFaculty: string;
+  aboutDetails: string[];
+}
+
+export const defaultOfficeInfo: OfficeInfo = {
+  phone: '0545 561 94 65',
+  email: 'av.enessyildirim@gmail.com',
+  emailSecondary: 'yildirimlawpartners@gmail.com',
+  address: 'Yıldırım Mahallesi Zafer Caddesi No:71B Bayrampaşa/İstanbul',
+  aboutTitle: 'Bize Ulaşın',
+  aboutDesc: 'Hukuki danışmanlık ve dava süreçleriniz için doğrudan bizimle iletişime geçebilirsiniz.',
+  aboutPhone: '0545 561 94 65',
+  aboutShowImage: false,
+  aboutImage: '/enes.jpg',
+  aboutFaculty: 'Marmara Üni. Hukuk Fakültesi',
+  aboutDetails: [
+    'Marmara Üniversitesi Hukuk Fakültesi mezunu olarak İstanbul Barosu bünyesinde kayıtlıyım. Kurmuş olduğum Avukat Enes Yıldırım Hukuk Bürosu çatısı altında, bireysel ve kurumsal müvekkillerime profesyonel dava takibi ile koruyucu hukuki danışmanlık hizmetleri sağlamaktayım.',
+    'Çalışmalarımda dürüstlük, şeffaflık, bilgi güvenliği ve sonuç odaklılık prensiplerini esas almaktayım. Sürekli değişen mevzuatı ve Yargıtay kararlarını yakından takip ederek, davalarınıza analitik, güncel ve sağlam bir zemin hazırlamaktayım. Müvekkillerimin haklarını her aşamada en üst düzeyde korumak temel vizyonumdur.'
+  ]
+};
+

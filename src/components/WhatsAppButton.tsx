@@ -1,10 +1,13 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import { useSite } from '../context/SiteContext';
 
 const WhatsAppButton = () => {
   const [showTooltip, setShowTooltip] = useState(false);
+  const { officeInfo } = useSite();
 
-  const phoneNumber = '905455619465';
+  const cleanPhone = officeInfo.phone.replace(/\D/g, '');
+  const phoneNumber = cleanPhone.startsWith('90') || cleanPhone.length > 10 ? cleanPhone : `90${cleanPhone}`;
   const message = encodeURIComponent(
     'Merhaba Avukat Enes Bey, web siteniz üzerinden ulaşıyorum. Hukuki bir konuda danışmanlık almak istiyorum.'
   );

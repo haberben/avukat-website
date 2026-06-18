@@ -1,17 +1,20 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import type { MenuItem, Service, Article } from '../data/defaultData';
-import { defaultMenus, defaultServices, defaultArticles } from '../data/defaultData';
-
+import type { MenuItem, Service, Article, OfficeInfo } from '../data/defaultData';
+import { defaultMenus, defaultServices, defaultArticles, defaultOfficeInfo } from '../data/defaultData';
 
 interface SiteContextType {
   menus: MenuItem[];
   services: Service[];
   articles: Article[];
+  officeInfo: OfficeInfo;
   selectedCategory: string;
   setSelectedCategory: (category: string) => void;
   adminLoggedIn: boolean;
   login: (username: string, password: string) => boolean;
   logout: () => void;
+  
+  // Office settings
+  updateOfficeInfo: (info: OfficeInfo) => void;
   
   // Menu operations
   addMenu: (menu: MenuItem) => void;
@@ -43,6 +46,7 @@ export const SiteProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [menus, setMenus] = useState<MenuItem[]>([]);
   const [services, setServices] = useState<Service[]>([]);
   const [articles, setArticles] = useState<Article[]>([]);
+  const [officeInfo, setOfficeInfo] = useState<OfficeInfo>(defaultOfficeInfo);
   const [selectedCategory, setSelectedCategory] = useState<string>('Hepsi');
   const [adminLoggedIn, setAdminLoggedIn] = useState<boolean>(false);
   const [adminPassword, setAdminPassword] = useState<string>('Yeniden.12*');
@@ -52,6 +56,7 @@ export const SiteProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const storedMenus = localStorage.getItem('av_menus');
     const storedServices = localStorage.getItem('av_services');
     const storedArticles = localStorage.getItem('av_articles');
+    const storedOfficeInfo = localStorage.getItem('av_office_info');
     const storedPassword = localStorage.getItem('av_admin_password');
     const isLoggedIn = sessionStorage.getItem('av_admin_logged');
 
@@ -73,6 +78,12 @@ export const SiteProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.setItem('av_articles', JSON.stringify(defaultArticles));
     }
 
+    if (storedOfficeInfo) setOfficeInfo(JSON.parse(storedOfficeInfo));
+    else {
+      setOfficeInfo(defaultOfficeInfo);
+      localStorage.setItem('av_office_info', JSON.stringify(defaultOfficeInfo));
+    }
+
     if (storedPassword) {
       setAdminPassword(storedPassword);
     } else {
@@ -83,6 +94,7 @@ export const SiteProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setAdminLoggedIn(true);
     }
   }, []);
+
 
   const login = (username: string, password: string): boolean => {
     if (username === 'avukatenes' && password === adminPassword) {
@@ -158,6 +170,11 @@ export const SiteProvider: React.FC<{ children: React.ReactNode }> = ({ children
     saveArticles(articles.filter(item => item.id !== id));
   };
 
+  const updateOfficeInfo = (info: OfficeInfo) => {
+    setOfficeInfo(info);
+    localStorage.setItem('av_office_info', JSON.stringify(info));
+  };
+
   // Filter and Scroll
   const changeCategoryAndScroll = (category: string) => {
     setSelectedCategory(category);
@@ -177,6 +194,7 @@ export const SiteProvider: React.FC<{ children: React.ReactNode }> = ({ children
       menus,
       services,
       articles,
+      officeInfo,
     };
     return JSON.stringify(data, null, 2);
   };
@@ -188,6 +206,9 @@ export const SiteProvider: React.FC<{ children: React.ReactNode }> = ({ children
         saveMenus(parsed.menus);
         saveServices(parsed.services);
         saveArticles(parsed.articles);
+        if (parsed.officeInfo) {
+          updateOfficeInfo(parsed.officeInfo);
+        }
         return true;
       }
       return false;
@@ -203,6 +224,7 @@ export const SiteProvider: React.FC<{ children: React.ReactNode }> = ({ children
         menus,
         services,
         articles,
+        officeInfo,
         selectedCategory,
         setSelectedCategory,
         adminLoggedIn,
@@ -221,6 +243,7 @@ export const SiteProvider: React.FC<{ children: React.ReactNode }> = ({ children
         exportData,
         importData,
         changePassword,
+        updateOfficeInfo,
       }}
     >
       {children}

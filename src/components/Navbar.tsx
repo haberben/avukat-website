@@ -6,7 +6,7 @@ import { useSite } from '../context/SiteContext';
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { menus, changeCategoryAndScroll } = useSite();
+  const { menus, changeCategoryAndScroll, officeInfo } = useSite();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,18 +23,18 @@ const Navbar = () => {
       <div className="hidden lg:block bg-burgundy-dark/95 text-silver-dark border-b border-white/5 py-2.5 text-xs">
         <div className="container mx-auto px-6 lg:px-16 flex justify-between items-center">
           <div className="flex items-center gap-6">
-            <a href="tel:+905455619465" className="flex items-center gap-2 hover:text-silver transition-colors">
+            <a href={`tel:${officeInfo.phone.replace(/\D/g, '')}`} className="flex items-center gap-2 hover:text-silver transition-colors">
               <Phone className="w-3.5 h-3.5 text-silver" />
-              <span>0545 561 94 65</span>
+              <span>{officeInfo.phone}</span>
             </a>
-            <a href="mailto:av.enessyildirim@gmail.com" className="flex items-center gap-2 hover:text-silver transition-colors">
+            <a href={`mailto:${officeInfo.email}`} className="flex items-center gap-2 hover:text-silver transition-colors">
               <Mail className="w-3.5 h-3.5 text-silver" />
-              <span>av.enessyildirim@gmail.com</span>
+              <span>{officeInfo.email}</span>
             </a>
           </div>
           <div className="flex items-center gap-2 text-silver-dark">
             <MapPin className="w-3.5 h-3.5 text-silver" />
-            <span>Bayrampaşa, İstanbul</span>
+            <span>{officeInfo.address.includes('/') ? officeInfo.address.split('/').pop()?.trim() : (officeInfo.address.includes(',') ? officeInfo.address.split(',').pop()?.trim() : officeInfo.address)}</span>
           </div>
         </div>
       </div>
@@ -167,17 +167,17 @@ const Navbar = () => {
                 
                 {/* Mobile Quick Info */}
                 <div className="pt-6 space-y-4 text-xs text-silver-dark">
-                  <a href="tel:+905455619465" className="flex items-center gap-3 py-2 text-silver hover:text-silver-bright transition-colors">
+                  <a href={`tel:${officeInfo.phone.replace(/\D/g, '')}`} className="flex items-center gap-3 py-2 text-silver hover:text-silver-bright transition-colors">
                     <Phone className="w-4 h-4 text-silver" />
-                    <span>0545 561 94 65</span>
+                    <span>{officeInfo.phone}</span>
                   </a>
-                  <a href="mailto:av.enessyildirim@gmail.com" className="flex items-center gap-3 py-2 text-silver hover:text-silver-bright transition-colors">
+                  <a href={`mailto:${officeInfo.email}`} className="flex items-center gap-3 py-2 text-silver hover:text-silver-bright transition-colors">
                     <Mail className="w-4 h-4 text-silver" />
-                    <span className="break-all">av.enessyildirim@gmail.com</span>
+                    <span className="break-all">{officeInfo.email}</span>
                   </a>
                   <div className="flex items-start gap-3 py-2">
                     <MapPin className="w-4 h-4 text-silver flex-shrink-0 mt-0.5" />
-                    <span>Yıldırım Mh. Zafer Cd. No:71B Bayrampaşa/İstanbul</span>
+                    <span>{officeInfo.address}</span>
                   </div>
                 </div>
 

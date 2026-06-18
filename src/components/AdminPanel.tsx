@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSite } from '../context/SiteContext';
 import { 
   Lock, FileText, Menu as MenuIcon, Settings, Trash2, Edit3, Plus, LogOut, 
@@ -25,11 +25,12 @@ const AdminPanel: React.FC = () => {
     addMenu, updateMenu, deleteMenu,
     addService, updateService, deleteService,
     addArticle, updateArticle, deleteArticle,
-    exportData, importData, changePassword
+    exportData, importData, changePassword,
+    officeInfo, updateOfficeInfo
   } = useSite();
 
   // Navigation / Tab state
-  const [activeTab, setActiveTab] = useState<'menus' | 'services' | 'articles' | 'settings'>('menus');
+  const [activeTab, setActiveTab] = useState<'menus' | 'services' | 'articles' | 'office' | 'settings'>('menus');
 
   // Login form state
   const [username, setUsername] = useState('');
@@ -41,6 +42,68 @@ const AdminPanel: React.FC = () => {
   const [newPass, setNewPass] = useState('');
   const [confirmPass, setConfirmPass] = useState('');
   const [passMessage, setPassMessage] = useState({ text: '', type: '' });
+
+  // Office & About settings form states
+  const [officePhone, setOfficePhone] = useState('');
+  const [officeEmail, setOfficeEmail] = useState('');
+  const [officeEmailSecondary, setOfficeEmailSecondary] = useState('');
+  const [officeAddress, setOfficeAddress] = useState('');
+  const [aboutTitleState, setAboutTitleState] = useState('');
+  const [aboutDescState, setAboutDescState] = useState('');
+  const [aboutPhoneState, setAboutPhoneState] = useState('');
+  const [aboutShowImageState, setAboutShowImageState] = useState(false);
+  const [aboutImageState, setAboutImageState] = useState('');
+  const [aboutFacultyState, setAboutFacultyState] = useState('');
+  const [aboutDetailsStateText, setAboutDetailsStateText] = useState('');
+  const [officeMessage, setOfficeMessage] = useState({ text: '', type: '' });
+
+  // Sync officeInfo with states when loaded
+  useEffect(() => {
+    if (officeInfo) {
+      setOfficePhone(officeInfo.phone || '');
+      setOfficeEmail(officeInfo.email || '');
+      setOfficeEmailSecondary(officeInfo.emailSecondary || '');
+      setOfficeAddress(officeInfo.address || '');
+      setAboutTitleState(officeInfo.aboutTitle || '');
+      setAboutDescState(officeInfo.aboutDesc || '');
+      setAboutPhoneState(officeInfo.aboutPhone || '');
+      setAboutShowImageState(officeInfo.aboutShowImage || false);
+      setAboutImageState(officeInfo.aboutImage || '');
+      setAboutFacultyState(officeInfo.aboutFaculty || '');
+      setAboutDetailsStateText((officeInfo.aboutDetails || []).join('\n\n'));
+    }
+  }, [officeInfo]);
+
+  const handleSaveOfficeInfo = (e: React.FormEvent) => {
+    e.preventDefault();
+    setOfficeMessage({ text: '', type: '' });
+
+    const details = aboutDetailsStateText
+      .split('\n\n')
+      .map(line => line.trim())
+      .filter(line => line.length > 0);
+
+    const updatedInfo = {
+      phone: officePhone.trim(),
+      email: officeEmail.trim(),
+      emailSecondary: officeEmailSecondary.trim(),
+      address: officeAddress.trim(),
+      aboutTitle: aboutTitleState.trim(),
+      aboutDesc: aboutDescState.trim(),
+      aboutPhone: aboutPhoneState.trim(),
+      aboutShowImage: aboutShowImageState,
+      aboutImage: aboutImageState,
+      aboutFaculty: aboutFacultyState.trim(),
+      aboutDetails: details
+    };
+
+    updateOfficeInfo(updatedInfo);
+    setOfficeMessage({ text: 'Büro ve Hakkımızda bilgileri başarıyla güncellendi.', type: 'success' });
+    setTimeout(() => {
+      setOfficeMessage({ text: '', type: '' });
+    }, 4500);
+  };
+
 
   // Menu form state
   const [editingMenu, setEditingMenu] = useState<string | null>(null);
@@ -489,6 +552,18 @@ const AdminPanel: React.FC = () => {
           >
             <FileText className="w-4 h-4" />
             <span>Makale Yayını & Blog</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('office')}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded text-left text-sm font-bold tracking-wide transition-all ${
+              activeTab === 'office' 
+                ? 'bg-burgundy text-white shadow-lg' 
+                : 'text-slate-400 hover:bg-white/5 hover:text-white'
+            }`}
+          >
+            <Users className="w-4 h-4" />
+            <span>Büro & Hakkımızda</span>
           </button>
 
           <button
@@ -1196,6 +1271,234 @@ const AdminPanel: React.FC = () => {
                 </div>
 
               </div>
+            </div>
+          )}
+
+          {/* TAB 3.5: OFFICE & ABOUT */}
+          {activeTab === 'office' && (
+            <div className="space-y-10">
+              <div className="border-b border-slate-800 pb-5">
+                <h2 className="text-2xl font-serif font-bold text-white flex items-center gap-2">
+                  <Users className="text-silver" /> Büro & Hakkımızda Yönetimi
+                </h2>
+                <p className="text-xs text-slate-400 mt-1 font-light">
+                  İletişim bilgilerini, e-postaları, adresleri ve "Hakkımda" biyografi/görsel alanlarını düzenleyin.
+                </p>
+              </div>
+
+              <form onSubmit={handleSaveOfficeInfo} className="space-y-8">
+                {/* İletişim Bilgileri */}
+                <div className="bg-slate-950 border border-slate-800 p-6 rounded-lg space-y-6">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-silver-dark flex items-center gap-2 border-b border-slate-800 pb-2">
+                    <Globe className="w-4 h-4 text-silver" /> Büro İletişim Bilgileri
+                  </h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label htmlFor="office-phone-input" className="block text-xs text-slate-400 font-bold mb-1">Telefon Numarası</label>
+                      <input
+                        id="office-phone-input"
+                        type="text"
+                        value={officePhone}
+                        onChange={(e) => setOfficePhone(e.target.value)}
+                        className="w-full bg-slate-900 border border-slate-800 rounded px-3 py-2 text-sm focus:outline-none focus:border-silver text-white"
+                        placeholder="Örn: 0545 561 94 65"
+                        required
+                      />
+                      <p className="text-[10px] text-slate-500 mt-1">Sitedeki tüm telefon numaralarını, WhatsApp butonunu ve arama bağlantılarını günceller.</p>
+                    </div>
+                    <div>
+                      <label htmlFor="office-email-input" className="block text-xs text-slate-400 font-bold mb-1">E-Posta Adresi (Birincil)</label>
+                      <input
+                        id="office-email-input"
+                        type="email"
+                        value={officeEmail}
+                        onChange={(e) => setOfficeEmail(e.target.value)}
+                        className="w-full bg-slate-900 border border-slate-800 rounded px-3 py-2 text-sm focus:outline-none focus:border-silver text-white"
+                        placeholder="Örn: av.enessyildirim@gmail.com"
+                        required
+                      />
+                      <p className="text-[10px] text-slate-500 mt-1">İletişim formunun gönderileceği ana e-posta adresidir.</p>
+                    </div>
+                    <div>
+                      <label htmlFor="office-email-sec-input" className="block text-xs text-slate-400 font-bold mb-1">E-Posta Adresi (İkincil)</label>
+                      <input
+                        id="office-email-sec-input"
+                        type="email"
+                        value={officeEmailSecondary}
+                        onChange={(e) => setOfficeEmailSecondary(e.target.value)}
+                        className="w-full bg-slate-900 border border-slate-800 rounded px-3 py-2 text-sm focus:outline-none focus:border-silver text-white"
+                        placeholder="Örn: yildirimlawpartners@gmail.com"
+                      />
+                      <p className="text-[10px] text-slate-500 mt-1">Sitede gösterilecek ek iletişim e-posta adresi.</p>
+                    </div>
+                    <div>
+                      <label htmlFor="office-address-input" className="block text-xs text-slate-400 font-bold mb-1">Ofis Adresi</label>
+                      <input
+                        id="office-address-input"
+                        type="text"
+                        value={officeAddress}
+                        onChange={(e) => setOfficeAddress(e.target.value)}
+                        className="w-full bg-slate-900 border border-slate-800 rounded px-3 py-2 text-sm focus:outline-none focus:border-silver text-white"
+                        placeholder="Örn: Yıldırım Mahallesi Zafer Caddesi No:71B Bayrampaşa/İstanbul"
+                        required
+                      />
+                      <p className="text-[10px] text-slate-500 mt-1">Footer ve İletişim sayfasındaki adres alanını günceller.</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Hakkımızda / Avukat Profili Bilgileri */}
+                <div className="bg-slate-950 border border-slate-800 p-6 rounded-lg space-y-6">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-silver-dark flex items-center gap-2 border-b border-slate-800 pb-2">
+                    <FileText className="w-4 h-4 text-silver" /> Hakkımda & Avukat Profil Bilgileri
+                  </h3>
+                  
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label htmlFor="about-title-input" className="block text-xs text-slate-400 font-bold mb-1">Hakkımda Bölümü Başlığı</label>
+                      <input
+                        id="about-title-input"
+                        type="text"
+                        value={aboutTitleState}
+                        onChange={(e) => setAboutTitleState(e.target.value)}
+                        className="w-full bg-slate-900 border border-slate-800 rounded px-3 py-2 text-sm focus:outline-none focus:border-silver text-white"
+                        placeholder="Örn: Hakkımda veya Av. Enes Yıldırım"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="about-faculty-input" className="block text-xs text-slate-400 font-bold mb-1">Mezun Olunan Fakülte / Okul</label>
+                      <input
+                        id="about-faculty-input"
+                        type="text"
+                        value={aboutFacultyState}
+                        onChange={(e) => setAboutFacultyState(e.target.value)}
+                        className="w-full bg-slate-900 border border-slate-800 rounded px-3 py-2 text-sm focus:outline-none focus:border-silver text-white"
+                        placeholder="Örn: Marmara Üni. Hukuk Fakültesi"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="about-desc-input" className="block text-xs text-slate-400 font-bold mb-1">Kısa Açıklama / Alt Başlık</label>
+                      <input
+                        id="about-desc-input"
+                        type="text"
+                        value={aboutDescState}
+                        onChange={(e) => setAboutDescState(e.target.value)}
+                        className="w-full bg-slate-900 border border-slate-800 rounded px-3 py-2 text-sm focus:outline-none focus:border-silver text-white"
+                        placeholder="Örn: Hukuki danışmanlık ve dava süreçleriniz için doğrudan..."
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="about-phone-input" className="block text-xs text-slate-400 font-bold mb-1">Hakkımda Kısmı Telefonu</label>
+                      <input
+                        id="about-phone-input"
+                        type="text"
+                        value={aboutPhoneState}
+                        onChange={(e) => setAboutPhoneState(e.target.value)}
+                        className="w-full bg-slate-900 border border-slate-800 rounded px-3 py-2 text-sm focus:outline-none focus:border-silver text-white"
+                        placeholder="Örn: 0545 561 94 65"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Görsel ve Mod Seçimi */}
+                  <div className="border-t border-slate-900 pt-6 space-y-6">
+                    <div className="flex items-center gap-3">
+                      <input
+                        id="about-show-image-input"
+                        type="checkbox"
+                        checked={aboutShowImageState}
+                        onChange={(e) => setAboutShowImageState(e.target.checked)}
+                        className="w-4 h-4 rounded text-burgundy bg-slate-900 border-slate-850 focus:ring-burgundy focus:ring-offset-slate-950"
+                      />
+                      <label htmlFor="about-show-image-input" className="text-sm font-bold text-white cursor-pointer select-none">
+                        Fotoğraflı Detaylı Biyografi Görünümünü Etkinleştir
+                      </label>
+                    </div>
+                    <p className="text-xs text-slate-400 leading-relaxed font-light">
+                      Bu seçenek işaretlendiğinde sitede detaylı özgeçmiş biyografisi ve avukat fotoğrafı gösterilir. İşaret kaldırıldığında ise sadece hızlı iletişim bilgileri ve mezuniyet kartı gösterilir (Daha sade arama modu).
+                    </p>
+
+                    {aboutShowImageState && (
+                      <div className="grid md:grid-cols-2 gap-6 border border-slate-900 p-4 rounded bg-slate-950/40">
+                        <div>
+                          <label className="block text-xs text-slate-400 font-bold mb-2">Avukat Fotoğrafı</label>
+                          <div className="flex gap-3 items-center">
+                            <label className="flex-1 flex flex-col items-center justify-center bg-slate-900 hover:bg-slate-850 border border-dashed border-slate-850 hover:border-silver rounded px-4 py-6 cursor-pointer transition-all">
+                              <FileUp className="w-6 h-6 text-slate-400 mb-1" />
+                              <span className="text-[10px] text-slate-400 text-center font-bold">Fotoğraf Seç (.png, .jpg)</span>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => handleImageUpload(e, setAboutImageState)}
+                                className="hidden"
+                              />
+                            </label>
+                            {aboutImageState && (
+                              <div className="relative w-16 h-20 rounded overflow-hidden border border-slate-800">
+                                <img src={aboutImageState} alt="Preview" className="w-full h-full object-cover" />
+                                <button
+                                  type="button"
+                                  onClick={() => setAboutImageState('')}
+                                  className="absolute top-0 right-0 bg-red-650 text-white rounded-bl p-1 text-[9px]"
+                                >
+                                  Sil
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                          <p className="text-[10px] text-slate-500 mt-1">Önerilen oran: 4:5 veya 3:4. Maksimum boy: 2.5 MB.</p>
+                        </div>
+                        <div className="flex items-center justify-center border border-slate-900 rounded bg-slate-900/30 p-2 min-h-[100px]">
+                          {aboutImageState ? (
+                            <img src={aboutImageState} alt="Hakkımda Görseli Önizleme" className="max-h-24 max-w-full rounded object-contain border border-slate-800" />
+                          ) : (
+                            <span className="text-xs text-slate-500 italic">Fotoğraf yüklenmedi, varsayılan görsel kullanılacak.</span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Biyografi Metni (aboutDetails) */}
+                  <div className="border-t border-slate-900 pt-6">
+                    <label htmlFor="about-details-input" className="block text-xs text-slate-400 font-bold mb-1">
+                      Detaylı Biyografi Paragrafları
+                    </label>
+                    <textarea
+                      id="about-details-input"
+                      value={aboutDetailsStateText}
+                      onChange={(e) => setAboutDetailsStateText(e.target.value)}
+                      rows={8}
+                      className="w-full bg-slate-900 border border-slate-800 rounded px-3 py-2 text-sm focus:outline-none focus:border-silver text-white font-light leading-relaxed"
+                      placeholder="Her paragraf arasına 2 kez ENTER (boş satır) bırakarak biyografinizi yazın.&#10;&#10;Örn: Marmara Üniversitesi Hukuk Fakültesi mezunuyum...&#10;&#10;Meslek hayatım boyunca dürüstlük prensiplerini esas aldım..."
+                    />
+                    <p className="text-[10px] text-slate-500 mt-1">
+                      Paragrafları ayırmak için satır aralarında boşluk bırakın (iki adet yeni satır).
+                    </p>
+                  </div>
+                </div>
+
+                {/* Submit and message */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  {officeMessage.text && (
+                    <div className={`flex items-center gap-2 text-xs border px-3.5 py-2.5 rounded ${
+                      officeMessage.type === 'success' 
+                        ? 'text-emerald-400 bg-emerald-950/20 border-emerald-500/20' 
+                        : 'text-red-400 bg-red-950/20 border-red-500/20'
+                    }`}>
+                      {officeMessage.type === 'success' ? <Check className="w-4 h-4 flex-shrink-0" /> : <AlertCircle className="w-4 h-4 flex-shrink-0" />}
+                      <span>{officeMessage.text}</span>
+                    </div>
+                  )}
+                  <button
+                    type="submit"
+                    className="md:ml-auto bg-gradient-to-r from-silver to-silver-dark text-burgundy-dark px-8 py-3 rounded text-xs font-bold uppercase tracking-wider hover:scale-[1.02] active:scale-95 transition-all"
+                  >
+                    Tüm Değişiklikleri Kaydet
+                  </button>
+                </div>
+              </form>
             </div>
           )}
 

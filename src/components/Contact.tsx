@@ -1,8 +1,10 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle2 } from 'lucide-react';
 import { useState } from 'react';
+import { useSite } from '../context/SiteContext';
 
 const Contact = () => {
+  const { officeInfo } = useSite();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -17,7 +19,7 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch("https://formsubmit.co/ajax/av.enessyildirim@gmail.com", {
+      const response = await fetch(`https://formsubmit.co/ajax/${officeInfo.email}`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -95,8 +97,7 @@ const Contact = () => {
                   <div>
                     <h4 className="text-white text-base font-bold mb-1 font-sans">Ofis Adresimiz</h4>
                     <p className="text-silver-dark font-light text-xs sm:text-sm leading-relaxed">
-                      Yıldırım Mahallesi Zafer Caddesi <br />
-                      No:71B Bayrampaşa / İstanbul
+                      {officeInfo.address}
                     </p>
                   </div>
                 </div>
@@ -108,8 +109,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="text-white text-base font-bold mb-1 font-sans">Telefon Numarası</h4>
-                    <a href="tel:+905455619465" className="text-silver-dark font-light text-xs sm:text-sm hover:text-silver transition-colors block">
-                      0545 561 94 65
+                    <a href={`tel:${officeInfo.phone.replace(/\D/g, '')}`} className="text-silver-dark font-light text-xs sm:text-sm hover:text-silver transition-colors block">
+                      {officeInfo.phone}
                     </a>
                   </div>
                 </div>
@@ -121,12 +122,14 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="text-white text-base font-bold mb-1 font-sans">E-Posta Adreslerimiz</h4>
-                    <a href="mailto:av.enessyildirim@gmail.com" className="text-silver-dark font-light text-xs sm:text-sm break-all hover:text-silver transition-colors block">
-                      av.enessyildirim@gmail.com
+                    <a href={`mailto:${officeInfo.email}`} className="text-silver-dark font-light text-xs sm:text-sm break-all hover:text-silver transition-colors block">
+                      {officeInfo.email}
                     </a>
-                    <a href="mailto:yildirimlawpartners@gmail.com" className="text-silver-dark font-light text-xs sm:text-sm break-all hover:text-silver transition-colors block mt-1">
-                      yildirimlawpartners@gmail.com
-                    </a>
+                    {officeInfo.emailSecondary && (
+                      <a href={`mailto:${officeInfo.emailSecondary}`} className="text-silver-dark font-light text-xs sm:text-sm break-all hover:text-silver transition-colors block mt-1">
+                        {officeInfo.emailSecondary}
+                      </a>
+                    )}
                   </div>
                 </div>
 

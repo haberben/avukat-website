@@ -1,7 +1,9 @@
 import { Scale, Phone, Mail, MapPin, ArrowUp } from 'lucide-react';
+import { useSite } from '../context/SiteContext';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { officeInfo } = useSite();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -72,24 +74,26 @@ const Footer = () => {
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-silver flex-shrink-0 mt-0.5" />
                 <span className="leading-relaxed">
-                  Yıldırım Mahallesi Zafer Caddesi No:71B Bayrampaşa/İstanbul
+                  {officeInfo.address}
                 </span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-silver flex-shrink-0" />
-                <a href="tel:+905455619465" className="hover:text-silver transition-colors">
-                  0545 561 94 65
+                <a href={`tel:${officeInfo.phone.replace(/\D/g, '')}`} className="hover:text-silver transition-colors">
+                  {officeInfo.phone}
                 </a>
               </li>
               <li className="flex items-start gap-2.5">
                 <Mail className="w-4 h-4 text-silver flex-shrink-0 mt-0.5" />
                 <div className="flex flex-col gap-1.5">
-                  <a href="mailto:av.enessyildirim@gmail.com" className="hover:text-silver transition-colors break-all">
-                    av.enessyildirim@gmail.com
+                  <a href={`mailto:${officeInfo.email}`} className="hover:text-silver transition-colors break-all">
+                    {officeInfo.email}
                   </a>
-                  <a href="mailto:yildirimlawpartners@gmail.com" className="hover:text-silver transition-colors break-all">
-                    yildirimlawpartners@gmail.com
-                  </a>
+                  {officeInfo.emailSecondary && (
+                    <a href={`mailto:${officeInfo.emailSecondary}`} className="hover:text-silver transition-colors break-all">
+                      {officeInfo.emailSecondary}
+                    </a>
+                  )}
                 </div>
               </li>
             </ul>
