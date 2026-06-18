@@ -1,16 +1,38 @@
 import { motion } from 'framer-motion';
-import { Phone, BookOpen, Clock, Award, HeartHandshake } from 'lucide-react';
+import { Phone, BookOpen, Clock, Award, HeartHandshake, Scale, Users, Building } from 'lucide-react';
 import { useSite } from '../context/SiteContext';
+
+const getIconComponent = (iconName: string) => {
+  switch (iconName) {
+    case 'Clock': return <Clock className="w-5 h-5 text-burgundy-light" />;
+    case 'Award': return <Award className="w-5 h-5 text-burgundy-light" />;
+    case 'HeartHandshake': return <HeartHandshake className="w-5 h-5 text-burgundy-light" />;
+    case 'Scale': return <Scale className="w-5 h-5 text-burgundy-light" />;
+    case 'Users': return <Users className="w-5 h-5 text-burgundy-light" />;
+    case 'Building': return <Building className="w-5 h-5 text-burgundy-light" />;
+    default: return <Award className="w-5 h-5 text-burgundy-light" />;
+  }
+};
 
 const About = () => {
   const { officeInfo } = useSite();
 
-  const stats = [
-    { value: '5+', label: 'Yıllık Deneyim', icon: <Clock className="w-5 h-5 text-burgundy-light" /> },
-    { value: '500+', label: 'Çözülen Dosya', icon: <Award className="w-5 h-5 text-burgundy-light" /> },
-    { value: '%96', label: 'Başarı Oranı', icon: <Award className="w-5 h-5 text-burgundy-light" /> },
-    { value: '7/24', label: 'Hukuki Danışma', icon: <HeartHandshake className="w-5 h-5 text-burgundy-light" /> }
+  const defaultStats = [
+    { id: 'stat-1', value: '5+', label: 'Yıllık Deneyim', iconName: 'Clock' },
+    { id: 'stat-2', value: '500+', label: 'Çözülen Dosya', iconName: 'Award' },
+    { id: 'stat-3', value: '%96', label: 'Başarı Oranı', iconName: 'Award' },
+    { id: 'stat-4', value: '7/24', label: 'Hukuki Danışma', iconName: 'HeartHandshake' }
   ];
+
+  const rawStats = officeInfo.aboutStats && officeInfo.aboutStats.length > 0
+    ? officeInfo.aboutStats
+    : defaultStats;
+
+  const stats = rawStats.map(stat => ({
+    value: stat.value,
+    label: stat.label,
+    icon: getIconComponent(stat.iconName)
+  }));
 
   if (!officeInfo.aboutShowImage) {
     // Simple Contact Mode

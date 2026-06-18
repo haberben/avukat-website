@@ -3,9 +3,10 @@ import { useSite } from '../context/SiteContext';
 import { 
   Lock, FileText, Menu as MenuIcon, Settings, Trash2, Edit3, Plus, LogOut, 
   Globe, AlertCircle, FileUp, Scale, Users, Home, ShieldAlert, BookOpen, 
-  Briefcase, Handshake, Building, ArrowLeft, Check, Key, HelpCircle
+  Briefcase, Handshake, Building, ArrowLeft, Check, Key, HelpCircle, Award
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import type { AboutStat } from '../data/defaultData';
 
 // Icon selections for Hukuk Alanları
 const iconList = [
@@ -56,6 +57,9 @@ const AdminPanel: React.FC = () => {
   const [aboutFacultyState, setAboutFacultyState] = useState('');
   const [aboutDetailsStateText, setAboutDetailsStateText] = useState('');
   const [officeMessage, setOfficeMessage] = useState({ text: '', type: '' });
+  
+  // Custom stats state
+  const [statsState, setStatsState] = useState<AboutStat[]>([]);
 
   // Sync officeInfo with states when loaded
   useEffect(() => {
@@ -71,8 +75,39 @@ const AdminPanel: React.FC = () => {
       setAboutImageState(officeInfo.aboutImage || '');
       setAboutFacultyState(officeInfo.aboutFaculty || '');
       setAboutDetailsStateText((officeInfo.aboutDetails || []).join('\n\n'));
+      
+      const defaultStats = [
+        { id: 'stat-1', value: '5+', label: 'Yıllık Deneyim', iconName: 'Clock' },
+        { id: 'stat-2', value: '500+', label: 'Çözülen Dosya', iconName: 'Award' },
+        { id: 'stat-3', value: '%96', label: 'Başarı Oranı', iconName: 'Award' },
+        { id: 'stat-4', value: '7/24', label: 'Hukuki Danışma', iconName: 'HeartHandshake' }
+      ];
+      setStatsState(officeInfo.aboutStats && officeInfo.aboutStats.length > 0
+        ? officeInfo.aboutStats
+        : defaultStats);
     }
   }, [officeInfo]);
+
+  const handleUpdateStatField = (index: number, field: keyof AboutStat, val: string) => {
+    const newStats = [...statsState];
+    newStats[index] = { ...newStats[index], [field]: val };
+    setStatsState(newStats);
+  };
+
+  const handleDeleteStat = (index: number) => {
+    const newStats = statsState.filter((_, idx) => idx !== index);
+    setStatsState(newStats);
+  };
+
+  const handleAddStat = () => {
+    const newStat: AboutStat = {
+      id: `stat-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      value: 'Yeni',
+      label: 'İstatistik Açıklaması',
+      iconName: 'Award'
+    };
+    setStatsState([...statsState, newStat]);
+  };
 
   const handleSaveOfficeInfo = (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,7 +129,8 @@ const AdminPanel: React.FC = () => {
       aboutShowImage: aboutShowImageState,
       aboutImage: aboutImageState,
       aboutFaculty: aboutFacultyState.trim(),
-      aboutDetails: details
+      aboutDetails: details,
+      aboutStats: statsState
     };
 
     updateOfficeInfo(updatedInfo);
@@ -1476,6 +1512,78 @@ const AdminPanel: React.FC = () => {
                     <p className="text-[10px] text-slate-500 mt-1">
                       Paragrafları ayırmak için satır aralarında boşluk bırakın (iki adet yeni satır).
                     </p>
+                  </div>
+                </div>
+
+                {/* İstatistik Kartları */}
+                <div className="bg-slate-950 border border-slate-800 p-6 rounded-lg space-y-6">
+                  <h3 className="text-sm font-bold uppercase tracking-wider text-silver-dark flex items-center gap-2 border-b border-slate-800 pb-2">
+                    <Award className="w-4 h-4 text-silver" /> İstatistik Kartları (Sayaçlar)
+                  </h3>
+                  <p className="text-xs text-slate-400 leading-relaxed font-light">
+                    Hakkımda bölümünde listelenecek tecrübe, dosya sayısı, başarı oranı gibi sayaç kartlarını yönetin. En fazla 4 adet kart eklenmesi görsel bütünlük açısından tavsiye edilir.
+                  </p>
+                  
+                  <div className="space-y-4">
+                    {statsState.map((stat, index) => (
+                      <div key={stat.id} className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center border border-slate-900 p-4 rounded bg-slate-900/10">
+                        <div className="md:col-span-3">
+                          <label className="block text-[10px] text-slate-400 font-bold mb-1">Değer (Örn: 5+ veya %96)</label>
+                          <input
+                            type="text"
+                            value={stat.value}
+                            onChange={(e) => handleUpdateStatField(index, 'value', e.target.value)}
+                            className="w-full bg-slate-900 border border-slate-850 rounded px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-silver"
+                            placeholder="Değer"
+                            required
+                          />
+                        </div>
+                        <div className="md:col-span-4">
+                          <label className="block text-[10px] text-slate-400 font-bold mb-1">Açıklama (Örn: Başarı Oranı)</label>
+                          <input
+                            type="text"
+                            value={stat.label}
+                            onChange={(e) => handleUpdateStatField(index, 'label', e.target.value)}
+                            className="w-full bg-slate-900 border border-slate-850 rounded px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-silver"
+                            placeholder="Açıklama"
+                            required
+                          />
+                        </div>
+                        <div className="md:col-span-3">
+                          <label className="block text-[10px] text-slate-400 font-bold mb-1">İkon Seçimi</label>
+                          <select
+                            value={stat.iconName}
+                            onChange={(e) => handleUpdateStatField(index, 'iconName', e.target.value)}
+                            className="w-full bg-slate-900 border border-slate-850 rounded px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-silver"
+                          >
+                            <option value="Clock">Saat (Zaman/Deneyim)</option>
+                            <option value="Award">Ödül/Kupa (Başarı/Dosya)</option>
+                            <option value="HeartHandshake">El Sıkışma (Danışmanlık/Güven)</option>
+                            <option value="Scale">Terazi (Adalet/Hukuk)</option>
+                            <option value="Users">Kullanıcılar (Müvekkil)</option>
+                            <option value="Building">Bina (Ofis/Gayrimenkul)</option>
+                          </select>
+                        </div>
+                        <div className="md:col-span-2 flex justify-end gap-2 pt-4 md:pt-0">
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteStat(index)}
+                            className="p-2 rounded bg-red-950/20 border border-red-500/20 text-red-400 hover:text-white transition-colors"
+                            title="İstatistiği Sil"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                    
+                    <button
+                      type="button"
+                      onClick={handleAddStat}
+                      className="w-full flex items-center justify-center gap-2 border border-dashed border-slate-800 hover:border-silver rounded py-3 text-xs text-slate-400 hover:text-white transition-colors"
+                    >
+                      <Plus className="w-4 h-4" /> Yeni İstatistik Kartı Ekle
+                    </button>
                   </div>
                 </div>
 

@@ -188,6 +188,13 @@ export const defaultArticles: Article[] = [
   }
 ];
 
+export interface AboutStat {
+  id: string;
+  value: string;
+  label: string;
+  iconName: string;
+}
+
 export interface OfficeInfo {
   phone: string;
   email: string;
@@ -200,6 +207,7 @@ export interface OfficeInfo {
   aboutImage: string;
   aboutFaculty: string;
   aboutDetails: string[];
+  aboutStats?: AboutStat[];
 }
 
 export const defaultOfficeInfo: OfficeInfo = {
@@ -216,6 +224,12 @@ export const defaultOfficeInfo: OfficeInfo = {
   aboutDetails: [
     'Marmara Üniversitesi Hukuk Fakültesi mezunu olarak İstanbul Barosu bünyesinde kayıtlıyım. Kurmuş olduğum Avukat Enes Yıldırım Hukuk Bürosu çatısı altında, bireysel ve kurumsal müvekkillerime profesyonel dava takibi ile koruyucu hukuki danışmanlık hizmetleri sağlamaktayım.',
     'Çalışmalarımda dürüstlük, şeffaflık, bilgi güvenliği ve sonuç odaklılık prensiplerini esas almaktayım. Sürekli değişen mevzuatı ve Yargıtay kararlarını yakından takip ederek, davalarınıza analitik, güncel ve sağlam bir zemin hazırlamaktayım. Müvekkillerimin haklarını her aşamada en üst düzeyde korumak temel vizyonumdur.'
+  ],
+  aboutStats: [
+    { id: 'stat-1', value: '5+', label: 'Yıllık Deneyim', iconName: 'Clock' },
+    { id: 'stat-2', value: '500+', label: 'Çözülen Dosya', iconName: 'Award' },
+    { id: 'stat-3', value: '%96', label: 'Başarı Oranı', iconName: 'Award' },
+    { id: 'stat-4', value: '7/24', label: 'Hukuki Danışma', iconName: 'HeartHandshake' }
   ]
 };
 
